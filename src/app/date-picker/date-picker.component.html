@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+  <mat-label>Date Completed: </mat-label>
+  <input matInput [matDatepicker]="picker1" (dateInput)="updateSLCT($event)" [value]="slctdDate">
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1 ></mat-datepicker>
+</mat-form-field>
+
+<div>Selected Date = </div><div id="selectedDate" value="formattedDate"> {{formattedDate}} </div>

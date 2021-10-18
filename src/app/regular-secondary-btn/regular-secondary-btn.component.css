@@ -1,0 +1,39 @@
+#button {
+    width: 144px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #0093D0;
+    background: white;
+    align-items: center;
+    margin: 8px;
+    font-weight: 500;
+}
+
+#button:hover {
+    background-color: none;
+    cursor: pointer;
+
+}
+
+#button:active {
+    background-color: none;
+
+}
+
+#button:disabled {
+    background-color: none;
+    border-color: #E4E4E4;
+}
+
+#button_text {
+    color: #0093D0;
+    position: relative;
+    font-family: 'Roboto', sans-serif;    
+    font-style: normal;
+    font-weight: inherit;
+    font-size: 14px;
+    line-height: 16px;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}

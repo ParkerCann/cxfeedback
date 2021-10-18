@@ -1,0 +1,96 @@
+<body>
+    <div class="container">
+        <div id="successConfirm" class="hidden successConfirm">
+            <span id="closeBtnContainer">
+                <button (click)="hideSuccess()" id="close-icon">
+                    <mat-icon  aria-hidden="false" aria-label="close-icon">close</mat-icon>
+                </button>
+            </span>
+            
+            <div id="successConfirmText" class="hidden">
+                <span id=""> Success! <br> Your Answer ID(s) are: </span>
+                <span id="returnedFeedbackID" [innerHTML]="answerIDText"></span>  
+            </div>
+        </div>
+        <h1 id="PageTitle">Answer Form</h1>
+
+
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <!-- card to select and display the information of the feedback type the user chose -->
+            
+            <mat-card>
+                <mat-card class="noBorder">
+                    <input class="form-select label-buffer"
+                            id="autoFeedback"
+                            [matAutocomplete]="autoFeedback"
+                            [formControl]="myControl"
+                            [(ngModel)]="feedbackid.feedbackid"
+                            placeholder="Select a Feedback ID if the information displayed is not correct."
+                            (keyup)="FeedbackInputFn($event)"
+                            required>
+                    <mat-autocomplete #autoFeedback="matAutocomplete"
+                                        [displayWith]="displayFeedbackFn"
+                                        (optionSelected)="updateDisplayInfo(feedbackid.feedbackid)">
+                        <mat-option *ngFor="let feedback of subFeedbackList" 
+                                    [value]="feedback">
+                            {{feedback.feedbackid}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-card>
+
+                <mat-card class="noBorder">
+                    <table id="infoTbl">
+                        <tr>
+                            <td class="rowLabel">Feedback ID:</td>
+                            <td class="rowData" id="rowFeedbackID" [innerHTML]="feedbackIDText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Completed By:</td>
+                            <td class="rowData" id="rowUserName" [innerHTML]="userNameText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Date Completed:</td>
+                            <td class="rowData" id="rowDateCompleted" [innerHTML]="dateCompletedText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Respondee Type:</td>
+                            <td class="rowData" id="rowRespondeeType" [innerHTML]="respondeeTypeText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Respondee Name:</td>
+                            <td class="rowData" id="rowRespondeeName" [innerHTML]="respondeeText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Feedback Type:</td>
+                            <td class="rowData" id="rowFeedbackType" [innerHTML]="feedbackTypeText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Product:</td>
+                            <td class="rowData" id="rowProduct" [innerHTML]="productText"></td>
+                        </tr>
+                        <tr>
+                            <td class="rowLabel">Call Duration:</td>
+                            <td class="rowData" id="rowCallDuration" [innerHTML]="callDurationText"></td>
+                        </tr>
+                    </table>
+                </mat-card>
+            </mat-card>
+                <ng-template #container>
+                        
+                </ng-template>
+
+                <app-primary-button id="submit-button" buttontext="Submit">
+                </app-primary-button>
+        </form>
+            
+            
+
+        <app-regular-secondary-btn buttontext="Add Question" (click)="addComponent(responseInputComponentClass)"></app-regular-secondary-btn>
+        <app-destructive-button buttontext="Remove Question" (click)="removeComponent(responseInputComponentClass)"></app-destructive-button>
+        
+        <button (click)="test2()">
+            test
+        </button>
+
+    </div>
+</body>

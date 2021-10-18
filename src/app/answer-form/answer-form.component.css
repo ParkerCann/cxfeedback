@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+body {
+  background-color: lightblue;
+}
+
+.container {
+  background-color: lightblue;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-bottom: 5vh;
+  min-width: 675px;
+  border-radius: 8px;
+}
+
+body {
+  padding-top: 2vh;
+  
+}
+
+#PageTitle {
+  padding-top: 2.5%;
+  font-size: 28pt;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+#submit-button{
+  float: right;
+}
+
+#infoTbl {
+  font-size: 12pt;
+}
+
+.rowLabel{
+  padding-right: 24px;
+}
+
+
+.noBorder{
+  border: none;
+  box-shadow: none;
+}
+
+.successConfirm{
+  width: 50vw;
+  background: white;
+  border: #3CB043 2px solid;
+  padding: 4px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 8px;
+  border-radius: 16px;
+  font-size: 16pt;
+}
+
+#successConfirmText{
+  align-items: center;
+  text-align: center;
+}
+
+#closeBtnContainer{
+  right: 25vw;
+  position: absolute;
+}

@@ -1,0 +1,41 @@
+#destr_button {
+    width: 144px;
+    height: 40px;
+    background-color: #DD191D;
+    border-radius: 4px;
+    border: #DD191D;
+    align-items: center;
+    margin: 8px;
+}
+
+#destr_button:hover {
+    background-color: #ED6A5D;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+#destr_button:active {
+    background-color: #C20002;
+}
+
+#destr_button:disabled {
+    background-color: #E4E4E4;
+}
+
+#destr_button_text {
+    position: relative;
+    font-family: 'Roboto', sans-serif;    
+    font-style: normal;
+    font-weight: inherit;
+    font-size: 14px;
+    line-height: 16px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#destr_button_text:hover {
+    font-weight: bold;
+
+}

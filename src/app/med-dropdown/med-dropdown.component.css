@@ -1,0 +1,59 @@
+button {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+    visibility: none;
+}
+
+#dropdown-arrow{
+    position: relative;
+    font-family: 'Material Icons' !important;
+    color: #0093d0;
+    right: 0px;
+    top: 4px;
+    font-size: 24px;
+
+    font-weight: normal;
+}
+
+#container{
+    width: 152px;
+    height: 32px;
+}
+
+#select-box{
+    width: 152px;
+    height: 32px;
+    background: #FFFFFF;
+    border: 0.75px solid #C3C3C3;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: normal;
+    
+}
+
+#select-box:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#select-box:active {
+    border: 0.75px solid #0093d0;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+#select-text {
+    height: 32px !important;
+    width: 144px !important;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: inherit;
+    font-size: 14px;
+    line-height: 32px;
+    /* identical to box height, or 229% */
+    align-items: center;
+    color: #2D3236;
+}

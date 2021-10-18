@@ -1,0 +1,346 @@
+
+<body>
+    <div id="successConfirm" class="hidden successConfirm">
+        <span id="closeBtnContainer">
+            <button (click)="hideSuccess()" id="close-icon">
+                <mat-icon  aria-hidden="false" aria-label="close-icon">close</mat-icon>
+            </button>
+        </span>
+        
+        <div id="successConfirmText" class="hidden">
+            <span id=""> Success! <br> Your ID for this feedback submission is </span>
+            <span id="returnedFeedbackID" [innerHTML]="returnedFeedbackIDText"></span>  
+        </div>
+    </div>
+    <div id="successConfirm" class="hidden successConfirm">
+        <div id="successUpdateText" class="hidden">
+            <span id="successUpdateSpan"> Information was successfully updated. </span>
+        </div>
+    </div>
+    <mat-stepper labelPosition="bottom" #stepper>
+        <mat-step orientation="horizontal" [editable]="true">
+        <ng-template matStepLabel> Feedback Form </ng-template>
+    <div class="container"> 
+
+        <!-- https://stackblitz.com/edit/angular-ihpcnz?file=src%2Fapp%2Fapp.component.html -->
+        <app-current-date-time id="currentDateTime"></app-current-date-time>
+
+        <h1 id="PageTitle">Feedback Form</h1>
+
+            <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+                <input type="datetime" name="datesubmitted" [(ngModel)]="Defaults.datesubmitted" disabled class="hidden">
+
+
+                <mat-card class="crdInputGroup">
+                    <mat-card id="crdUsername" class="halfCard">
+                        <mat-label for="username"> Name: </mat-label>
+                        <span id="username-error" class="hidden popup">
+                            Please enter a username.
+                        </span>
+                        <div *ngIf=""> <!--have ng if to disable input while checkbox is checked -->
+                            <mat-error id="username-val" class="hidden" *ngIf="myControlName.errors?.requireMatch">
+                                Selection must correspond to an available option.
+                            </mat-error>
+                        </div>
+                        <input type="text"
+                                name="username"
+                                [(ngModel)]="Defaults.conductor_id"
+                                class="form-select label-buffer" 
+                                placeholder="Select who completed this feedback."
+                                aria-label="Username" 
+                                [formControl]="myControlName" 
+                                [matAutocomplete]="autoUsername"
+                                id="autoUsername"
+                                (keyup)="UsernameInputFn($event)"
+                                required>
+                        <mat-autocomplete #autoUsername="matAutocomplete" 
+                                            [displayWith]="displayUsernameFn"
+                                            (optionSelected)="clrUsernameAlert()">
+                            <mat-option *ngFor="let employee of subEmployeeIDsList" 
+                                            [value]="employee">
+                                {{employee.FullName}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-card>
+
+                    <mat-card id="crdCalendar" class="halfCard">
+                        <mat-label id="lblCalendar">Select a date:</mat-label>
+                        <span id="date-error" class="hidden popup">
+                            Please choose a vaild date.
+                        </span>
+                        <mat-form-field appearance="fill" id="datepicker">
+                            <mat-label>Date Completed: </mat-label>
+                            <input matInput class="label-buffer"
+                                        id="datepicker" name="datepicker" 
+                                        [matDatepicker]="picker1" 
+                                        (value)="formattedDate"
+                                        [(ngModel)]="Defaults.datecompleted"
+                                        (dateChange)="clrDateAlert()">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 ></mat-datepicker>
+                          </mat-form-field>
+                    </mat-card>
+                </mat-card>
+
+                <mat-card class="crdInputGroup">
+                    <mat-card id="crdRespondeeType" class="noOutline">
+                        <mat-label for="respondeeType"> Respondee Type: </mat-label>
+                        <span id="respondeetype-error" class="hidden popup">
+                            Please enter a respondee type.
+                        </span>
+                        <mat-error id="respondeetype-val" class="hidden" *ngIf="myControlRespondeeType.errors?.requireMatch">
+                            Selection must correspond to an available option.
+                        </mat-error>
+                        <input type="text"
+                                name="respondeeType"
+                                [(ngModel)]="Defaults.respondeeTypeId"
+                                class="form-select label-buffer" 
+                                md-min-length="0"
+                                placeholder="Select what type the Respondee belongs to."
+                                aria-label="Respondee Type" 
+                                [formControl]="myControlRespondeeType" 
+                                [matAutocomplete]="autoRespondeeType"
+                                id="autoRespondeetype"
+                                (keyup)="RespondeeTypeInputFn($event)"
+                                required>
+                        <mat-autocomplete   #autoRespondeeType="matAutocomplete"
+                                            [displayWith]="displayRespondeeTypeFn"
+                                            (optionSelected)="clrRespondeetypeAlert()"
+                                            (optionSelected)="chkRespondeeType()"
+                                            >
+                            <mat-option *ngFor="let respondeetype of subRespondeeTypeList" 
+                                        [value]="respondeetype">
+                                {{respondeetype.respondee_type}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-card>
+                </mat-card>
+
+
+                <mat-card *ngIf="chkEmployee" class="">
+                    <mat-card id="crdRespondee" class="regCard">
+                        <mat-label for="respondee"> Associate Name: </mat-label>
+                        <h5> *Please attempt to search either the last or first name</h5>
+                        <span id="respondee-error" class="hidden popup">
+                            Please enter a respondee. If there is none, then check the checkbox below.
+                        </span>
+                        <mat-error id="respondee-val" class="hidden" *ngIf="myControlEmployee.errors?.requireMatch">
+                            Selection must correspond to an available option.
+                        </mat-error>
+                        <input type="text" 
+                            name="respondee"
+                            id="autoRespondee"
+                            [(ngModel)]="Defaults.respondeeid"
+                            class="form-select label-buffer"
+                            placeholder="Pick one"
+                            aria-label="Number"
+                            [formControl]="myControlEmployee"
+                            [matAutocomplete]="autoEmployee"
+                            (keyup)="EmployeeInputFn($event)">
+                        <mat-autocomplete #autoEmployee="matAutocomplete" ng-disabled="checked"
+                                (optionSelected)="clrRespondeeAlert()"
+                                [displayWith]="displayEmployeeFn">
+                                <mat-option *ngFor="let employee of subEmployeeList" 
+                                            [value]="employee">
+                                    {{employee.FullName || 'Loading...'}}
+                                </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-checkbox disabled [(ngModel)]="checked" id="chkbox" (change)="onChangeEmp($event)"
+                        name="chkbox">
+                            Check here if there is no respondee.
+                        </mat-checkbox>
+                        <div class="chkboxDisabled">Checkbox is temporarily disabled.</div>
+                    </mat-card>
+                </mat-card>
+
+                <mat-card *ngIf="chkCustomer" class="">
+                    <mat-card id="crdRespondee" class="regCard show-above-overlay">
+                        <mat-label for="respondee"> Customer Name: </mat-label>
+                        <span id="respondee-error" class="hidden popup">
+                            Please enter a respondee. If there is none, then check the checkbox below.
+                        </span>
+                        <mat-error id="respondee-val" class="hidden" *ngIf="myControlCustomer.errors?.requireMatch">
+                            Selection must correspond to an available option.
+                        </mat-error>
+                        <input type="text" 
+                            name="respondee"
+                            id="autoRespondee"
+                            [(ngModel)]="Defaults.respondeeid"
+                            class="form-select label-buffer"
+                            placeholder="Pick one"
+                            aria-label="Number"
+                            [formControl]="myControlCustomer"
+                            [matAutocomplete]="autoCustomer"
+                            (keyup)="CustomerInputFn($event)">
+                        <mat-autocomplete #autoCustomer="matAutocomplete" ng-disabled="checked"
+                                (optionSelected)="clrRespondeeAlert()"
+                                [displayWith]="displayCustomerFn">
+                                <mat-option *ngFor="let customer of subCustomerList" 
+                                            [value]="customer"
+                                            class="autocomplete-item">
+                                    {{customer.CustomerName || 'Loading...'}}
+                                </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-checkbox disabled [(ngModel)]="checked" id="chkbox" (change)="onChangeCust($event)"
+                        name="chkbox">
+                            Check here if there is no respondee.
+                        </mat-checkbox>
+                        <div class="chkboxDisabled">Checkbox is temporarily disabled.</div>
+                    </mat-card>
+                </mat-card>
+
+                <mat-card *ngIf="chkCarrier" class="">
+                    <mat-card id="crdRespondee" class="regCard show-above-overlay">
+                        <mat-label for="respondee"> Carrier Name: </mat-label>
+                        <span id="respondee-error" class="hidden popup">
+                            Please enter a respondee. If there is none, then check the checkbox below.
+                        </span>
+                        <mat-error id="respondee-val" class="hidden" *ngIf="myControlCarrier.errors?.requireMatch">
+                            Selection must correspond to an available option.
+                        </mat-error>
+                        <input type="text" 
+                            name="respondee"
+                            id="autoRespondee"
+                            [(ngModel)]="Defaults.respondeeid"
+                            class="form-select label-buffer"
+                            placeholder="Pick one"
+                            aria-label="Number"
+                            [formControl]="myControlCarrier"
+                            [matAutocomplete]="autoCarrier"
+                            (keyup)="CarrierInputFn($event)">
+                        <mat-autocomplete #autoCarrier="matAutocomplete" ng-disabled="checked"
+                                (optionSelected)="clrRespondeeAlert()"
+                                [displayWith]="displayCarrierFn">
+                                <mat-option *ngFor="let carrier of subCarrierList" 
+                                            [value]="carrier"
+                                            class="autocomplete-item">
+                                    {{carrier.CarrierName || 'Loading...'}}
+                                </mat-option>
+                        </mat-autocomplete>
+
+                        <mat-checkbox disabled [(ngModel)]="checked" id="chkbox" (change)="onChangeCarrier($event)"
+                        name="chkbox">
+                            Check here if there is no respondee.
+                        </mat-checkbox>
+                        <div class="chkboxDisabled">Checkbox is temporarily disabled.</div>
+                    </mat-card>
+                </mat-card>
+
+
+                <mat-card class="crdInputGroup">
+                    <mat-card id="crdProduct" class="halfCard show-above-overlay">
+                        <mat-label for="product"> Product: </mat-label>
+                        <span id="product-error" class="hidden popup">
+                            Please enter a product.
+                        </span>
+                        <mat-error id="username-val" class="hidden" *ngIf="myControlProduct.errors?.requireMatch">
+                            Selection must correspond to an available option.
+                        </mat-error>
+                        <input type="text" 
+                                name="product"
+                                [(ngModel)]="Defaults.productid"
+                                class="form-select label-buffer" 
+                                placeholder="Select the product related to this feedback."
+                                aria-label="Product" 
+                                [formControl]="myControlProduct" 
+                                [matAutocomplete]="autoProduct"
+                                id="autoProduct"
+                                (keyup)="ProductInputFn($event)">
+                        <mat-autocomplete #autoProduct="matAutocomplete" 
+                                            [displayWith]="displayProductFn"
+                                            (optionSelected)="clrProductAlert()">
+                            <mat-option *ngFor="let product of subProductList" [value]="product">
+                                {{product.product_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-card>
+
+                    <mat-card id="crdFeedbackType" class="halfCard show-above-overlay">
+                        <mat-label for="feedbackType"> Feedback Type: </mat-label>
+                        <span id="feedbacktype-error" class="hidden popup">
+                            Please choose a feeback type.
+                        </span>
+                        <mat-error id="username-val" class="hidden" *ngIf="myControlFeedbackType.errors?.requireMatch">
+                            Selection must correspond to an available option.
+                        </mat-error>
+                        <input type="text" 
+                                name="feedbackType"
+                                [(ngModel)]="Defaults.feedbacktypeid"
+                                class="form-select label-buffer" 
+                                placeholder="Select the Feedback Type."
+                                aria-label="Feedback Type"
+                                #trigger="matAutocompleteTrigger" 
+                                [formControl]="myControlFeedbackType" 
+                                [matAutocomplete]="autoFeedbackType"
+                                id="autoFeedbackType"
+                                (keyup)="FeedbackTypeInputFn($event)">
+                        <mat-autocomplete #autoFeedbackType="matAutocomplete"
+                                            [displayWith]="displayFeedbackTypeFn" 
+                                            (optionSelected)="clrFeedbackTypeAlert()">
+                            <mat-option *ngFor="let FeedbackType of subFeedbackTypeList" 
+                                        [value]="FeedbackType" >
+                                {{FeedbackType.feedback_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-card>
+                </mat-card>
+
+                <mat-card class="crdInputGroup">
+                    
+                    
+                    <mat-card class="noOutline2">
+                        <mat-label> Call Duration:</mat-label>
+                        <ngx-duration-picker [(value)]="myDuration"
+                            [options]="{zeroValue: '00:00:00', showYears: false, showMonths: 
+                            false, showWeeks: false, showDays: 
+                            false, showPreview: true, customOutputFormat: '{{h}} hours : {{m}} minutes : {{s}} seconds', 
+                            previewFormat: '{{h}} hours : {{m}} minutes : {{s}} seconds'}"
+                            name="callduration" class="label-buffer"
+                            [(ngModel)]="Defaults.callduration" >
+                        </ngx-duration-picker>
+                    </mat-card>
+                </mat-card>
+
+                    <app-primary-button id="submit-button" buttontext="Next Page" *ngIf="!successfulSubmit">
+                    </app-primary-button>
+
+                    <app-primary-button id="update-button" buttontext="Update Info" *ngIf="successfulSubmit">
+                    </app-primary-button>
+
+            </form>
+
+            <!-- <button (click)="getData()">
+                getData
+            </button>
+                <app-regular-secondary-btn  id="test-button" buttontext="Refresh" (click)="refreshBtn()">
+                </app-regular-secondary-btn>
+            <div id="refreshTip">*Only click this if the dropdowns do not have any values when the page loads.</div> -->
+            <app-regular-secondary-btn 
+                    *ngIf="!successfulSubmit" 
+                    buttontext="Update Info" 
+                    (click)="switchUpdate()"
+                    matTooltip="Clicking this will allow you to update the most recent feedback submission you made. This will only apply to the latest feedback submission."></app-regular-secondary-btn>
+            <app-regular-secondary-btn 
+                    *ngIf="successfulSubmit" 
+                    buttontext="Add New Feedback" 
+                    (click)="switchUpdate()"
+                    matTooltip="Clicking this will allow you to create new feedback submissions."></app-regular-secondary-btn>
+    </div>
+    </mat-step>
+        <mat-step>
+            <ng-template matStepLabel> Answer Form </ng-template>
+            <app-answer-form></app-answer-form>
+            <button mat-button matStepperPrevious>
+                <app-regular-secondary-btn (click)="getData()" buttontext="Back">
+                    
+                </app-regular-secondary-btn>     
+            </button>
+        </mat-step>
+    </mat-stepper>
+
+
+    
+</body>
+

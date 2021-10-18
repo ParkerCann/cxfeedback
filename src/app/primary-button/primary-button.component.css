@@ -1,0 +1,37 @@
+#button {
+    width: 144px;
+    height: 40px;
+    background-color: #0093D0;
+    border-radius: 4px;
+    border: #0093D0;
+    align-items: center;
+    margin: 8px;
+    font-weight: 500;
+
+}
+
+#button:hover {
+    background-color: #2CADE3;
+    cursor: pointer;
+
+}
+
+#button:active {
+    background-color: #006EA9;
+}
+
+#button:disabled {
+    background-color: #E4E4E4;
+}
+
+#button_text {
+    position: relative;
+    font-family: 'Roboto', sans-serif;    
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+}

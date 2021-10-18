@@ -1,0 +1,18 @@
+<div id="container">
+    <button id="select-box">
+        <span id="select-text"> 
+            Select Option
+        </span>
+        <span class="material-icons-outlined" id="dropdown-arrow">
+            keyboard_arrow_down
+        </span>
+    </button>
+    <div id="dropdown-container" [ngClass]="'hidden'">
+        <div id="dropdown-box">
+            <div id="dropdown-text" *ngFor="let option of options">
+                {{option.viewValue}}
+            </div>
+        </div>
+    </div>
+</div>
+

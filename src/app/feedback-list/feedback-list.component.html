@@ -1,0 +1,125 @@
+<body>
+    <div class="container">
+        <app-current-date-time id="currentDateTime"></app-current-date-time>
+        <mat-card>
+            <mat-form-field appearance="fill" class="buffer">
+                <mat-label>Filter By:</mat-label>
+                <mat-select (selectionChange)="chgFilt()" [(ngModel)]="origFilt.selectedVal">
+                    <mat-option *ngFor="let filter of typeOfFilter" [value]="filter" > {{filter}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="isUser">
+                <mat-label>Choose a User</mat-label>
+                <mat-select multiple [(ngModel)]="filters.completedBy" [formControl]="myControlUser"  (selectionChange)="enableFilters()">
+                    <mat-option *ngFor="let user of EmployeeIDsList" [value]="user.FullName"> {{user.FullName}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="isProd">
+                <mat-label>Choose a Product</mat-label>
+                <mat-select multiple [(ngModel)]="filters.product" [formControl]="myControlProduct"  (selectionChange)="enableFilters()">
+                    <mat-option *ngFor="let prod of ProductList" [value]="prod.product_name"> {{prod.product_name}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="isDate">
+                <mat-label>Choose a Date</mat-label>
+                <mat-select multiple [(ngModel)]="filters.dateCompleted" [formControl]="myControlDate"  (selectionChange)="enableFilters()">
+                    <mat-option *ngFor="let date of DateList" [value]="date.datecompleted"> {{date.datecompleted}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="isFeedType">
+                <mat-label>Choose a Feedback Type</mat-label>
+                <mat-select multiple [(ngModel)]="filters.feedbackType" [formControl]="myControlFeedType"  (selectionChange)="enableFilters()">
+                    <mat-option *ngFor="let feedtype of FeedbackTypeList" [value]="feedtype.feedback_name"> {{feedtype.feedback_name}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="isRespType">
+                <mat-label>Choose a Respondee Type</mat-label>
+                <mat-select multiple [(ngModel)]="filters.respondeeType" [formControl]="myControlRespType"  (selectionChange)="enableFilters()">
+                    <mat-option *ngFor="let resptype of RespondeeTypeList" [value]="resptype.respondee_type"> {{resptype.respondee_type}} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button (click)="filter()" id="filter-button" *ngIf="chosenFilter">
+                Filter
+            </button>
+
+
+            <button (click)="clearFilters()" id="clear-button">
+                Clear Filters
+            </button>
+
+            <div class="hint-text"> 
+                *if the text is small for whatever reason, just refresh the page. 
+                <br> 
+                It happens when you switch between the Feedback Form and the Feedback List.
+            </div>
+
+            <table>
+                <tr class="labels">
+                    <td>
+                        Feedback ID:
+                    </td>
+                    <td>
+                        Completed By:
+                    </td>
+                    <td>
+                        Date Completed:
+                    </td>
+                    <td>
+                        Feedback Type:
+                    </td>
+                    <td>
+                        Product:
+                    </td>
+                    <td>
+                        Respondee Type:
+                    </td>
+                    <td>
+                        Respondee Name:
+                    </td>
+                    <td>
+                        Call Duration:
+                    </td>
+                    <td>
+                        Time Submitted:
+                    </td>
+                </tr>
+                <tr *ngFor="let feedback of subFeedbackList">
+                    <td>
+                        {{feedback.feedbackid}}
+                    </td>
+                    <td>
+                        {{feedback.Fullname}}
+                    </td>
+                    <td>
+                        {{feedback.datecompleted}}
+                    </td>
+                    <td>
+                        {{feedback.feedback_name}}
+                    </td>
+                    <td>
+                        {{feedback.product_name}}
+                    </td>
+                    <td>
+                        {{feedback.respondee_type}}
+                    </td>
+                    <td>
+                        {{feedback.RespondeeName}}
+                    </td>
+                    <td>
+                        {{feedback.callduration}}
+                    </td>
+                    <td>
+                        {{feedback.datesubmitted}}
+                    </td>
+                </tr>
+            </table>
+        </mat-card>
+    </div>    
+</body>
+

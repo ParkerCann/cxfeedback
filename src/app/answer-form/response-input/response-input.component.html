@@ -1,0 +1,60 @@
+<!-- card for entering the information into the database -->
+<form #form="ngForm" id="responseInputForm">
+    <mat-card>
+        <mat-card class="questionAutoComplete noBorder">
+            
+            <mat-label for="question">
+                Select a question:
+            </mat-label>
+            <input type="text"
+                    name="question"
+                    [(ngModel)]="responseInput.questionid"
+                    class="form-select label-buffer"
+                    placeholder="Select a question"
+                    aria-label="question"
+                    [formControl]="myControlQuestion"
+                    [matAutocomplete]="autoQuestion"
+                    id="autoQuestion"
+                    (keyup)="QuestionInputFn($event)"
+                    required>
+            <mat-autocomplete #autoQuestion="matAutocomplete" 
+                                [displayWith]="displayQuestionName">
+                    <mat-option *ngFor="let question of QuestionList"
+                                [value]="question">
+                                {{question.question_name || 'Loading...'}}
+                    </mat-option>
+            </mat-autocomplete>  
+        </mat-card>
+        
+
+        <mat-card class="noBorder">
+            <mat-form-field class="example-full-width response" appearance="fill" hintLabel="">
+                <mat-label>Response</mat-label>
+                <textarea matInput 
+                        #matInput 
+                        placeholder="" 
+                        maxlength="300" 
+                        [(ngModel)]="responseInput.response"
+                        [formControl]="myControlResponse"></textarea>
+                <span class="charCounter"> {{ matInput.value.length }} / 300 </span>
+            </mat-form-field>
+
+            <div id="ratingContainer">
+                <div>
+                    <mat-label>Rating: </mat-label>  
+                </div>
+               
+                <input matInput
+                        (keyup)="ratingInputValidator($event)"
+                        id="responseInput"
+                        type="number" 
+                        placeholder="Ex: 1" 
+                        [(ngModel)]="responseInput.rating"
+                        [formControl]="myControlRating">
+            </div>
+            
+        </mat-card>
+    </mat-card>
+</form>
+
+

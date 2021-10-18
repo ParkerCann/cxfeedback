@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+#PageTitle {
+  padding-top: 2.5%;
+  font-size: 28pt;
+}
+
+body {
+  background-color: lightblue;
+}
+
+mat-stepper {
+  background-color: lightblue;
+}
+
+.container {
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-bottom: 5vh;
+  min-width: 675px;
+  border-radius: 8px;
+}
+
+body {
+  padding-top: 2vh;
+  
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+::ng-deep #mat-autocomplete-2{
+  overflow-y: hidden;
+}
+
+.noOutline{
+  box-shadow: none;
+  width: 40vw;
+}
+
+.noOutline2{
+  box-shadow: none;
+  width: 70vw;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+
+.cdkViewport-large{
+  height: 240px;
+}
+
+.cdkViewport-small{
+  height: 64px;
+}
+
+.cdkViewport-med{
+  height: 184px;
+}
+
+#currentDateTime{
+  margin-top: 8px;
+  float: right;
+}
+
+#refreshTip{
+  font-size: 8pt;
+}
+
+.chkboxDisabled{
+  position: absolute;
+  font-size: 8pt;
+  color: #a0a0a0;
+}
+
+.successConfirm{
+  width: 50vw;
+  background: white;
+  border: #3CB043 2px solid;
+  padding: 4px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 8px;
+  border-radius: 16px;
+  font-size: 16pt;
+}
+
+#successConfirmText{
+  align-items: center;
+  text-align: center;
+}
+
+#closeBtnContainer{
+  right: 25vw;
+  position: absolute;
+}
+
+::ng-deep app-regular-secondary-btn {
+  z-index: 1001;
+}
+
+::ng-deep #filterBtn > #button {
+  width: 160px;
+}
+
+::ng-deep .cdk-overlay-pane{
+  z-index: 0 !important;
+}
+
+.show-above-overlay {
+  z-index: 1001 !important;
+}
+
+#filterBtn{
+  float: right;
+}
+
+.alert {
+  border: 1px red solid;
+
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+.popup {
+  position: absolute;
+  text-align: center;
+  background: lightcoral;
+  border-radius: 4px;
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left: 12px;
+}
+
+mat-stepper{
+  margin: auto;
+  max-width: 1500px;
+}
+
+::ng-deep .cdk-overlay-container, .cdk-overlay-pane { z-index: 9999 !important; }
+
+mat-checkbox {
+  margin-top: 2vh !important;
+}
+
+.mat-card>:first-child, .mat-card-content>:first-child {
+    margin-top: inherit;
+}
+
+.crdInputGroup {
+  display: flex;
+}
+
+::ng-deep .cdk-overlay-pane{
+  border-radius: 4px;
+  }
+
+::ng-deep .mat-typography {
+  font-family: 'Roboto', sans-serif;
+}
+
+mat-form-field {
+  display: block;
+  max-width: 25vw;
+  max-height: 10vh;
+}
+
+::ng-deep .mat-option {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.regCard {
+  box-shadow: none;
+}
+
+.halfCard {
+  box-shadow: none;
+  width: 50%;
+  min-width: fit-content;
+  max-height: 125px;
+}
+
+#lblCalendar {
+  margin-bottom: 2%;
+}
+
+mat-label {
+  font-size: 16pt;
+  font-weight: 400;
+}
+
+input {
+  text-overflow: ellipsis;
+}
+
+#crdCalendar {
+  left: 0%;
+}
+
+#submit-button{
+  float: right;
+}
+
+#update-button{
+  float: right;
+}
+
+::ng-deep #dp-duration-value {
+  display: block;
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+
+app-date-picker {
+  display: block;
+}
+
+.label-buffer {
+  margin-top: 1vh;
+}
+
+#durationValue {
+  display: none;
+  visibility: hidden;
+}
+
+::ng-deep #dp-duration-value {
+  max-width: 15vw;
+  font-size: 10pt;
+  text-align: right;
+}
+
+::ng-deep .mat-autocomplete-trigger {
+  max-height: 32px;
+  background-color: snow;
+}
+
+::ng-deep .mat-form-field-infix {
+  max-height: 32px;
+  font-size: 0.5rem;
+}
+
+::ng-deep .mat-input-element {
+  font-size: 1rem !important;
+}

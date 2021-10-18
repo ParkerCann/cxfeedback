@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+mat-form-field {
+    display: block;
+    max-width: 25vw;
+    max-height: 10vh;
+}
+
+.noBorder{
+    border: none;
+    box-shadow: none;
+}
+
+.hidden {
+    visibility: hidden;
+    display: none;
+  }
+
+::ng-deep .mat-option {
+width: 100%;
+margin-top: 1%;
+margin-bottom: 1%;
+border-radius: 10px;
+}
+
+::ng-deep .cdk-overlay-pane{
+border-radius: 4px;
+}
+
+::ng-deep .mat-typography {
+font-family: 'Roboto', sans-serif;
+}
+
+.mat-card>:first-child, .mat-card-content>:first-child {
+    margin-top: inherit;
+}
+
+::ng-deep mat-card {
+    min-width: 20vw;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+mat-label {
+    font-size: 16pt;
+    font-weight: 400;
+    padding-right: 8px;
+}
+
+.label-buffer {
+margin-top: 1vh;
+}
+
+.virtualViewport{
+    min-height: 240px;
+    overflow: scroll;
+}
+
+.response{
+    min-width: 50vw;
+}
+
+.rating{
+    width: 10vw;
+}
+
+.charCounter{
+    font-size: 8pt;
+    float: right;
+    margin-right: 24px;
+}
+
+textarea{
+    font-size: 14pt;
+}
+
+#ratingContainer{
+    margin-top: 24px;
+    min-height: 8vh;
+}
+
+#responseInput{
+    padding: 8px;
+    background: #f3f3f3;
+    max-width: 80px;
+}
+
+.invalid{
+    border: 2px solid red;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.floatRight{
+    color: red;
+    float: right;
+}
+
+#ratingContainer{
+    margin-bottom: -2.5vh;
+}
+

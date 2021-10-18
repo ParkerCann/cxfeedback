@@ -1,0 +1,32 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+h1 {
+    text-align: center;
+    padding-top: 2vh;
+}
+
+#buttonsTable {
+    margin: auto;
+}
+
+td {
+    text-align: center;
+    margin: auto;
+    width: 33vw;
+    /* border: 0.5px solid black; */
+}
+
+#header {
+    top: 0;
+}
+
+#router {
+    height: auto;
+    border-bottom: 1px solid black;
+}
+
+li {
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+

@@ -1,0 +1,14 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Assignee</mat-label>
+      <input type="text" #input matInput [formControl]="myControl" [matAutocomplete]="auto"
+            (keyup)="UsernameInputFn($event)">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUsernameFn">
+
+        <mat-option *ngFor="let option of subEmployeeIDsList" [value]="option">
+            {{option.FullName}}
+          </mat-option>
+
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
