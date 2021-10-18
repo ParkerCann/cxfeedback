@@ -1,20 +1,26 @@
 
 <body>
-    <div id="successConfirm" class="hidden successConfirm">
+    <div id="successConfirm" class="successConfirm hidden">
         <span id="closeBtnContainer">
             <button (click)="hideSuccess()" id="close-icon">
-                <mat-icon  aria-hidden="false" aria-label="close-icon">close</mat-icon>
+                <mat-icon aria-hidden="false" aria-label="close-icon">close</mat-icon>
             </button>
         </span>
         
-        <div id="successConfirmText" class="hidden">
-            <span id=""> Success! <br> Your ID for this feedback submission is </span>
-            <span id="returnedFeedbackID" [innerHTML]="returnedFeedbackIDText"></span>  
+        <div id="successConfirmText" class="">
+            <span id="" class="spanSize"> Success! <br> Your ID for this feedback submission is </span>
+            <span id="returnedFeedbackID" class="spanSize" [innerHTML]="returnedFeedbackIDText"></span>  
         </div>
     </div>
-    <div id="successConfirm" class="hidden successConfirm">
-        <div id="successUpdateText" class="hidden">
-            <span id="successUpdateSpan"> Information was successfully updated. </span>
+    <div id="updateConfirm" class="successConfirm hidden">
+        <span id="closeBtnContainer">
+            <button (click)="hideUpdate()" id="close-icon">
+                <mat-icon aria-hidden="false" aria-label="close-icon">close</mat-icon>
+            </button>
+        </span>
+
+        <div id="successUpdateText" class="">
+            <span id="successUpdateSpan"> Information was updated successfully. </span>
         </div>
     </div>
     <mat-stepper labelPosition="bottom" #stepper>
@@ -311,12 +317,6 @@
 
             </form>
 
-            <!-- <button (click)="getData()">
-                getData
-            </button>
-                <app-regular-secondary-btn  id="test-button" buttontext="Refresh" (click)="refreshBtn()">
-                </app-regular-secondary-btn>
-            <div id="refreshTip">*Only click this if the dropdowns do not have any values when the page loads.</div> -->
             <app-regular-secondary-btn 
                     *ngIf="!successfulSubmit" 
                     buttontext="Update Info" 

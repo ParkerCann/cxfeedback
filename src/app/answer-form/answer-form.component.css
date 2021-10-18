@@ -73,3 +73,19 @@ button {
   right: 25vw;
   position: absolute;
 }
+
+.form-select{
+  font-family: Roboto;
+  font-weight: 400;
+  padding-left: 8px;
+  width: 100%;
+  height: 40px;
+  font-size: 13pt;
+  border: 1px #c3c3c3 solid;
+  border-radius: 4px;
+}
+
+.form-select:focus-visible{
+  border: 1px solid #0093d0;
+  outline: none;
+}

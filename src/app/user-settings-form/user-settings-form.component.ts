@@ -708,6 +708,10 @@ CarrierInputFn(event: KeyboardEvent): void {
   document.getElementById('successConfirm').classList.add('hidden');
  }
 
+ hideUpdate(){
+  document.getElementById('updateConfirm').classList.add('hidden');
+ }
+
  setData(){
    const jsonData = this.defaultsBackup;
    localStorage.setItem('myData', jsonData);

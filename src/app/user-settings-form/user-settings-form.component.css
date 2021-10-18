@@ -80,22 +80,34 @@ button {
   width: 50vw;
   background: white;
   border: #3CB043 2px solid;
-  padding: 4px;
+  padding: 12px;
   text-align: center;
   margin: auto;
   margin-bottom: 8px;
   border-radius: 16px;
   font-size: 16pt;
+  height: auto;
 }
 
 #successConfirmText{
+  margin: auto;
   align-items: center;
   text-align: center;
+}
+
+.spanSize {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #closeBtnContainer{
   right: 25vw;
   position: absolute;
+}
+
+#close-icon{
+  cursor:pointer;
+  margin-top: -8px;
 }
 
 ::ng-deep app-regular-secondary-btn {
@@ -250,4 +262,20 @@ app-date-picker {
 
 ::ng-deep .mat-input-element {
   font-size: 1rem !important;
+}
+
+.form-select{
+  font-family: Roboto;
+  font-weight: 400;
+  padding-left: 8px;
+  width: 100%;
+  height: 56px;
+  font-size: 13pt;
+  border: 1px #c3c3c3 solid;
+  border-radius: 4px;
+}
+
+.form-select:focus-visible{
+  border: 1px solid #0093d0;
+  outline: none;
 }

@@ -22,7 +22,6 @@ td {
 
 #router {
     height: auto;
-    border-bottom: 1px solid black;
 }
 
 li {
@@ -30,3 +29,18 @@ li {
     margin-right: 2vw;
 }
 
+.navbar{
+    padding-top: 32px;
+    display: block;
+}
+
+.navbar-nav{
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+}
+
+.nav-item{
+    margin-left: 16px;
+    margin-right: 16px;
+}
