@@ -1,7 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-html, body { height: 100%; background: lightblue;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+    height: 100%; 
+    background: lightblue;
+    font-size: 12pt;
+}
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
+#PageTitle {
+    padding-top: 2.5%;
+    font-size: 28pt;
+  }
+  
+  .container {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: 5vh;
+    min-width: 1000px;
+    max-width: 80vw;
+    margin: auto;
+    border-radius: 8px;
+  }
 
+  .form-select{
+    display: block;
+    font-family: Roboto;
+    font-weight: 400;
+    padding-left: 8px;
+    width: 100%;
+    max-width: 1200px;
+    height: 32px;
+    font-size: 13pt;
+    border: 1px #c3c3c3 solid;
+    border-radius: 4px;
+  }
+  
+  .form-select:focus-visible{
+    border: 1px solid #0093d0;
+    outline: none;
+  }
+
+  .alert {
+    border: 1px red solid;
+  
+  }
+  
+  .hidden {
+    visibility: hidden;
+    display: none;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .down-chevron{
+      position: absolute;
+      right: 2%;
+      top: 55px;
+      transform: scale(1.5);
+      color: #0093d0;
+      pointer-events: none;
+  }
+
+  

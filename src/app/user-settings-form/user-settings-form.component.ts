@@ -102,7 +102,6 @@ export class UserSettingsFormComponent implements OnInit {
 
   myDuration: string;
   customOutput: string;
-  test: string;
   form: any;
 
   constructor(private dataservice: DataService,
@@ -764,8 +763,10 @@ CarrierInputFn(event: KeyboardEvent): void {
     }
     else if(this.successfulSubmit == true){
       this.successfulSubmit = false;
-    }
-    
+    } 
+  }
+
+  test(){
   }
 
 }

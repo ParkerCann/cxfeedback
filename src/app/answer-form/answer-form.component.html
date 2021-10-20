@@ -86,11 +86,7 @@
             
 
         <app-regular-secondary-btn buttontext="Add Question" (click)="addComponent(responseInputComponentClass)"></app-regular-secondary-btn>
-        <app-destructive-button buttontext="Remove Question" (click)="removeComponent(responseInputComponentClass)"></app-destructive-button>
-        
-        <button (click)="test2()">
-            test
-        </button>
+        <app-destructive-button *ngIf="components?.length !== 1" buttontext="Remove Question" (click)="removeComponent(responseInputComponentClass)"></app-destructive-button>
 
     </div>
 </body>

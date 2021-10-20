@@ -1,11 +1,13 @@
 <!-- card for entering the information into the database -->
 <form #form="ngForm" id="responseInputForm">
-    <mat-card>
         <mat-card class="questionAutoComplete noBorder">
-            
+            <div class="smlbuffer">  </div>
             <mat-label for="question">
                 Select a question:
             </mat-label>
+
+            <div class="buffer">  </div>
+
             <input type="text"
                     name="question"
                     [(ngModel)]="responseInput.questionid"
@@ -24,10 +26,7 @@
                                 {{question.question_name || 'Loading...'}}
                     </mat-option>
             </mat-autocomplete>  
-        </mat-card>
-        
-
-        <mat-card class="noBorder">
+            <div class="buffer">  </div>
             <mat-form-field class="example-full-width response" appearance="fill" hintLabel="">
                 <mat-label>Response</mat-label>
                 <textarea matInput 
@@ -52,9 +51,7 @@
                         [(ngModel)]="responseInput.rating"
                         [formControl]="myControlRating">
             </div>
-            
         </mat-card>
-    </mat-card>
 </form>
 
 

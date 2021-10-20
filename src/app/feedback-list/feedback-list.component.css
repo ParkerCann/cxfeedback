@@ -1,29 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-#PageTitle {
-  padding-top: 2.5%;
-  font-size: 28pt;
-}
-
-body {
-  background-color: lightblue;
-  padding-top: 2vh;
-}
-
 mat-stepper {
   background-color: lightblue;
-}
-
-.container {
-  padding-bottom: 5vh;
-  min-width: 675px;
-  border-radius: 8px;
-}
-
-
-button {
-  background: none;
-  border: none;
 }
 
 td{
@@ -32,10 +10,10 @@ td{
     width: 10vw;
 }
 
-.labels{
-    padding-bottom: 16px;
-    border-bottom: 1px solid #c3c3c3;
-    font-weight: 500;
+#labels{
+  border-bottom: 1px solid black !important;
+  font-weight: 500;
+  height: 56px;
 }
 
 #filter-button{
@@ -77,6 +55,7 @@ mat-label{
 
 tr {
     border-bottom: 1px #c3c3c3 solid;
+    height: 56px;
 }
 
 ::ng-deep .mat-form-field-flex{
@@ -87,10 +66,8 @@ tr {
   font-size: 8pt;
 }
 
-
 mat-select{
   font-size: 12pt;
-
 }
 
  /* add padding to text */

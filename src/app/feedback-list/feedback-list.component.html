@@ -1,6 +1,5 @@
 <body>
     <div class="container">
-        <app-current-date-time id="currentDateTime"></app-current-date-time>
         <mat-card>
             <mat-form-field appearance="fill" class="buffer">
                 <mat-label>Filter By:</mat-label>
@@ -60,7 +59,7 @@
             </div>
 
             <table>
-                <tr class="labels">
+                <tr id="labels" class="labels">
                     <td>
                         Feedback ID:
                     </td>
@@ -89,7 +88,7 @@
                         Time Submitted:
                     </td>
                 </tr>
-                <tr *ngFor="let feedback of subFeedbackList">
+                <tr [id]="'feedback' + feedback.feedbackid" *ngFor="let feedback of subFeedbackList">
                     <td>
                         {{feedback.feedbackid}}
                     </td>

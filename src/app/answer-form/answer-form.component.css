@@ -1,39 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-
-body {
-  background-color: lightblue;
-}
-
-.container {
-  background-color: lightblue;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  padding-bottom: 5vh;
-  min-width: 675px;
-  border-radius: 8px;
-}
-
-body {
-  padding-top: 2vh;
-  
-}
-
-#PageTitle {
-  padding-top: 2.5%;
-  font-size: 28pt;
-}
-
-.hidden {
-  visibility: hidden;
-  display: none;
-}
-
-button {
-  background: none;
-  border: none;
-}
-
 #submit-button{
   float: right;
 }
@@ -74,18 +40,8 @@ button {
   position: absolute;
 }
 
-.form-select{
-  font-family: Roboto;
-  font-weight: 400;
-  padding-left: 8px;
-  width: 100%;
-  height: 40px;
-  font-size: 13pt;
-  border: 1px #c3c3c3 solid;
-  border-radius: 4px;
+.hidden {
+  visibility: hidden;
+  display: none;
 }
 
-.form-select:focus-visible{
-  border: 1px solid #0093d0;
-  outline: none;
-}

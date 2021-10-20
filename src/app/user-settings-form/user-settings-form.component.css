@@ -1,35 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-#PageTitle {
-  padding-top: 2.5%;
-  font-size: 28pt;
-}
-
-body {
-  background-color: lightblue;
-}
-
 mat-stepper {
   background-color: lightblue;
 }
 
-.container {
-  padding-left: 2vw;
-  padding-right: 2vw;
-  padding-bottom: 5vh;
-  min-width: 675px;
-  border-radius: 8px;
-}
-
-body {
-  padding-top: 2vh;
-  
-}
-
-button {
-  background: none;
-  border: none;
-}
 
 ::ng-deep #mat-autocomplete-2{
   overflow-y: hidden;
@@ -130,16 +104,6 @@ button {
   float: right;
 }
 
-.alert {
-  border: 1px red solid;
-
-}
-
-.hidden {
-  visibility: hidden;
-  display: none;
-}
-
 .popup {
   position: absolute;
   text-align: center;
@@ -209,6 +173,11 @@ mat-label {
   font-weight: 400;
 }
 
+::ng-deep .bs-chevron{
+  color: #0093d0;
+  margin-left: 12px;
+}
+
 input {
   text-overflow: ellipsis;
 }
@@ -264,18 +233,7 @@ app-date-picker {
   font-size: 1rem !important;
 }
 
-.form-select{
-  font-family: Roboto;
-  font-weight: 400;
-  padding-left: 8px;
-  width: 100%;
-  height: 56px;
-  font-size: 13pt;
-  border: 1px #c3c3c3 solid;
-  border-radius: 4px;
-}
-
-.form-select:focus-visible{
-  border: 1px solid #0093d0;
-  outline: none;
+.hidden {
+  visibility: hidden;
+  display: none;
 }
