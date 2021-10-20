@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SharedService {
 
-  readonly APIUrl="http://localhost:54843/api";
+  readonly APIUrl="http://cxfeedbackservice.tql.com/api";
 
   constructor(private http:HttpClient) { }
 
