@@ -33,6 +33,7 @@ import { ResponseInputComponent } from './answer-form/response-input/response-in
 import {MatStepperModule} from '@angular/material/stepper';
 import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTableModule} from '@angular/material/table';
 
 
 //import {enableProdMode} from '@angular/core';
@@ -75,7 +76,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ScrollingModule,
     MatIconModule,
     MatStepperModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
     ],
   providers: [SharedService],
   bootstrap: [AppComponent]

@@ -105,7 +105,7 @@ mat-stepper {
 }
 
 .popup {
-  position: absolute;
+  float: right;
   text-align: center;
   background: lightcoral;
   border-radius: 4px;
@@ -132,6 +132,7 @@ mat-checkbox {
 
 .crdInputGroup {
   display: flex;
+  box-shadow: none;
 }
 
 ::ng-deep .cdk-overlay-pane{
@@ -236,4 +237,8 @@ app-date-picker {
 .hidden {
   visibility: hidden;
   display: none;
+}
+
+input:disabled{
+  background: lightgrey;
 }

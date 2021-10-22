@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SharedService {
 
-  readonly APIUrl="http://cxfeedbackservice.tql.com/api";
+  readonly APIUrl="http://localhost:54843/api";
 
   constructor(private http:HttpClient) { }
 
@@ -73,6 +73,10 @@ export class SharedService {
 
   getFilteredQuestionList(val:any){
     return this.http.post(this.APIUrl+'/question', val)
+  }
+
+  getFilteredAnswerList(val:any){
+    return this.http.post(this.APIUrl+'/filteredanswer', val)
   }
 
   addFeedback(val:any){

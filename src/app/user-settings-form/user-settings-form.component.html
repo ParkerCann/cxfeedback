@@ -59,7 +59,6 @@
                                 id="autoUsername"
                                 (keyup)="UsernameInputFn($event)"
                                 required>
-                        <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete #autoUsername="matAutocomplete" 
                                             [displayWith]="displayUsernameFn"
@@ -112,7 +111,6 @@
                                 id="autoRespondeetype"
                                 (keyup)="RespondeeTypeInputFn($event)"
                                 required>
-                                <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete   #autoRespondeeType="matAutocomplete"
                                             [displayWith]="displayRespondeeTypeFn"
@@ -130,14 +128,15 @@
 
                 <mat-card *ngIf="chkEmployee" class="">
                     <mat-card id="crdRespondee" class="regCard">
-                        <mat-label for="respondee"> Associate Name: </mat-label>
-                        <h5> *Please attempt to search either the last or first name</h5>
+                        <mat-label for="respondee"> Associate Name: </mat-label> 
                         <span id="respondee-error" class="hidden popup">
                             Please enter a respondee. If there is none, then check the checkbox below.
                         </span>
-                        <mat-error id="respondee-val" class="hidden" *ngIf="myControlEmployee.errors?.requireMatch">
+                        <mat-error id="respondee-val" class="hidden popup" *ngIf="myControlEmployee.errors?.requireMatch">
                             Selection must correspond to an available option.
-                        </mat-error>
+                        </mat-error>    
+                        <h5> *Please attempt to search either the last or first name</h5>
+                        
                         <input type="text" 
                             name="respondee"
                             id="autoRespondee"
@@ -148,7 +147,6 @@
                             [formControl]="myControlEmployee"
                             [matAutocomplete]="autoEmployee"
                             (keyup)="EmployeeInputFn($event)">
-                            <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete #autoEmployee="matAutocomplete" ng-disabled="checked"
                                 (optionSelected)="clrRespondeeAlert()"
@@ -159,7 +157,7 @@
                                 </mat-option>
                         </mat-autocomplete>
 
-                        <mat-checkbox disabled [(ngModel)]="checked" id="chkbox" (change)="onChangeEmp($event)"
+                        <mat-checkbox [(ngModel)]="checked" id="chkbox" (change)="onChangeEmp($event)"
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
@@ -186,7 +184,6 @@
                             [formControl]="myControlCustomer"
                             [matAutocomplete]="autoCustomer"
                             (keyup)="CustomerInputFn($event)">
-                            <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete #autoCustomer="matAutocomplete" ng-disabled="checked"
                                 (optionSelected)="clrRespondeeAlert()"
@@ -198,7 +195,7 @@
                                 </mat-option>
                         </mat-autocomplete>
 
-                        <mat-checkbox disabled [(ngModel)]="checked" id="chkbox" (change)="onChangeCust($event)"
+                        <mat-checkbox [(ngModel)]="checked" id="chkbox" (change)="onChangeCust($event)"
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
@@ -225,7 +222,6 @@
                             [formControl]="myControlCarrier"
                             [matAutocomplete]="autoCarrier"
                             (keyup)="CarrierInputFn($event)">
-                            <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete #autoCarrier="matAutocomplete" ng-disabled="checked"
                                 (optionSelected)="clrRespondeeAlert()"
@@ -237,7 +233,7 @@
                                 </mat-option>
                         </mat-autocomplete>
 
-                        <mat-checkbox disabled [(ngModel)]="checked" id="chkbox" (change)="onChangeCarrier($event)"
+                        <mat-checkbox [(ngModel)]="checked" id="chkbox" (change)="onChangeCarrier($event)"
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
@@ -265,7 +261,6 @@
                                 [matAutocomplete]="autoProduct"
                                 id="autoProduct"
                                 (keyup)="ProductInputFn($event)">
-                        <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete #autoProduct="matAutocomplete" 
                                             [displayWith]="displayProductFn"
@@ -295,7 +290,6 @@
                                 [matAutocomplete]="autoFeedbackType"
                                 id="autoFeedbackType"
                                 (keyup)="FeedbackTypeInputFn($event)">
-                        <mat-icon class="material-icons down-chevron" matSuffix>keyboard_arrow_down</mat-icon>
 
                         <mat-autocomplete #autoFeedbackType="matAutocomplete"
                                             [displayWith]="displayFeedbackTypeFn" 

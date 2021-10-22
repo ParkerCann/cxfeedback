@@ -230,6 +230,10 @@ export class UserSettingsFormComponent implements OnInit {
     if (this.subCarrierList && this.subCarrierList.indexOf(selection) < 0) {
       return { requireMatch: true };
     }
+    else if(selection == 0){
+      this.myControlCarrier.clearValidators();
+      return null;
+    }
     return null;
   }
 
@@ -296,7 +300,7 @@ export class UserSettingsFormComponent implements OnInit {
       document.getElementById("autoRespondeetype").classList.add("alert");
       document.getElementById("respondeetype-error").classList.remove("hidden");
     } 
-    else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] > 1 && this.Defaults.respondeeid == 0){
+    else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] > 1){
       
       var autoRespondee = document.getElementById("autoRespondee");
       var respondeeError = document.getElementById("respondee-error");
@@ -304,7 +308,7 @@ export class UserSettingsFormComponent implements OnInit {
       if (autoRespondee != null){
         autoRespondee.classList.add("alert");
       }
-      if (respondeeError != null){
+      if (respondeeError != null && this.checked == false){
         respondeeError.classList.remove("hidden");
       }
     }
@@ -343,10 +347,30 @@ export class UserSettingsFormComponent implements OnInit {
       }
     }
     else {
+
+      // if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] == 1 && this.checked == true){
+      //   this.myControlCarrier.clearValidators();
+      // }
+      // else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] == 2 && this.checked == true){
+      //   this.myControlCustomer.clearValidators();
+      // }
+      // else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] == 3 && this.checked == true){
+      //   this.myControlEmployee.clearValidators();
+      // }
+
+      this.myControlCarrier.clearValidators();
+      this.myControlCustomer.clearValidators();
+      this.myControlEmployee.clearValidators();
+
       //only get the id from the whole Object
       this.Defaults.conductor_id = this.Defaults.conductor_id[Object.keys(this.Defaults.conductor_id)[0]];
       this.Defaults.respondeeTypeId = this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]];
-      this.Defaults.respondeeid = this.Defaults.respondeeid[Object.keys(this.Defaults.respondeeid)[0]];
+      if(this.checked == false){
+        this.Defaults.respondeeid = this.Defaults.respondeeid[Object.keys(this.Defaults.respondeeid)[0]];
+      }
+      else if(this.checked == true){
+        this.Defaults.respondeeid = null;
+      }
       this.Defaults.productid = this.Defaults.productid[Object.keys(this.Defaults.productid)[0]];
       this.Defaults.feedbacktypeid = this.Defaults.feedbacktypeid[Object.keys(this.Defaults.feedbacktypeid)[0]];
       this.Defaults.datesubmitted = document.getElementById('currentDateTime').innerText.toString();
@@ -445,7 +469,6 @@ export class UserSettingsFormComponent implements OnInit {
     //disable input if checkbox is checked, 
     if (chkbox.checked == true){
       auto.disabled = true;
-      this.Defaults.respondeeid = 0;
     }
     else{
       auto.disabled = false;
@@ -606,11 +629,13 @@ displayEmployeeFn(SubEmployeeList) {
 }
 EmployeeInputFn(event: KeyboardEvent): void {
   this.EmployeeName.FullName = this.myControlEmployee.value;
-
+  if(this.EmployeeName.FullName !== ""){
     this.service.getFilteredEmployeeList(this.EmployeeName).subscribe(
       result => this.subEmployeeList = (result),
       error => this.onHttpError(error)
     );
+  }
+    
 }
 
 displayCustomerFn(SubCustomerList) {
@@ -618,11 +643,14 @@ displayCustomerFn(SubCustomerList) {
 }
 CustomerInputFn(event: KeyboardEvent): void {
   this.CustomerName.CustomerName = this.myControlCustomer.value;
-
+  if(this.CustomerName.CustomerName !== ""){
     this.service.getFilteredCustomerList(this.CustomerName).subscribe(
       result => this.subCustomerList = (result),
       error => this.onHttpError(error)
     );
+  }
+
+    
 }
 
 displayCarrierFn(subCarrierList) {
@@ -630,11 +658,13 @@ displayCarrierFn(subCarrierList) {
 }
 CarrierInputFn(event: KeyboardEvent): void {
   this.CarrierName.CarrierName = this.myControlCarrier.value;
-
-  this.service.getFilteredCarrierList(this.CarrierName).subscribe(
-    result => this.subCarrierList = (result),
-    error => this.onHttpError(error)
-  );
+  if(this.CarrierName.CarrierName !== ""){
+    this.service.getFilteredCarrierList(this.CarrierName).subscribe(
+      result => this.subCarrierList = (result),
+      error => this.onHttpError(error)
+    );  
+  }
+  
 }
 
 

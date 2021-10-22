@@ -52,14 +52,71 @@
                 Clear Filters
             </button>
 
-            <div class="hint-text"> 
+            <!-- <div class="hint-text"> 
                 *if the text is small for whatever reason, just refresh the page. 
                 <br> 
                 It happens when you switch between the Feedback Form and the Feedback List.
-            </div>
+            </div> -->
 
-            <table>
-                <tr id="labels" class="labels">
+            <table mat-table 
+                    id="feedbackList" 
+                    [dataSource]="this.subFeedbackList" 
+                    multiTemplateDataRows>
+
+                <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay" class="totalRows">
+                    <th mat-header-cell *matHeaderCellDef class="headers">
+                        {{column}}
+                    </th>
+                    <td mat-cell *matCellDef="let feedback" class="displayCells" (click)="viewAnswers(feedback)">
+                        {{feedback[column]}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let feedback" [attr.colspan]="columnsToDisplay.length">
+                        <div [@detailExpand]="feedback == expandedFeedback ? 'expanded' : 'collapsed'"
+                            class="expandedDetails">
+                            <div>
+                                <div>
+                                    <tr class="answer-labels">
+                                        <td class="answerWidth">
+                                            Question Name
+                                        </td>
+                                        <td class="answerWidth">
+                                            Answer
+                                        </td>
+                                        <td class="answerWidth">
+                                            Rating
+                                        </td>
+                                    </tr>
+                                    <tr *ngFor="let answer of retrievedAnswers" class="answer-text">
+                                        <td class="answerWidth">
+                                            {{answer.question_name}}
+                                        </td>
+                                        <td class="answerWidth">
+                                            {{answer.review}}
+                                        </td>
+                                        <td class="answerWidth">
+                                            {{answer.rating}}
+                                        </td>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let feedback; columns: columnsToDisplay;"
+                    class="feedbackrow"
+                    [class.example-expanded-row]="expandedFeedback === feedback"
+                    (click)="expandedFeedback = expandedFeedback === feedback ? null : feedback">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+
+                <!-- <mat-row id="labels" class="labels">
+                    <td class="viewColumn">
+
+                    </td>
                     <td>
                         Feedback ID:
                     </td>
@@ -87,8 +144,13 @@
                     <td>
                         Time Submitted:
                     </td>
-                </tr>
-                <tr [id]="'feedback' + feedback.feedbackid" *ngFor="let feedback of subFeedbackList">
+                </mat-row>
+                <mat-row rowspan="2" [id]="'feedback' + feedback.feedbackid" *ngFor="let feedback of subFeedbackList">
+                    <td class="viewColumn">
+                        <button class="viewText" (click)="viewAnswers(feedback)">
+                            VIEW    
+                        </button>
+                    </td>
                     <td>
                         {{feedback.feedbackid}}
                     </td>
@@ -116,9 +178,41 @@
                     <td>
                         {{feedback.datesubmitted}}
                     </td>
+                </mat-row> -->
+                <!-- <tr class="answer-labels">
+                    <td class="answerWidth">
+                        Feedback ID
+                    </td>
+                    <td class="answerWidth">
+                        Question Name
+                    </td>
+                    <td class="answerWidth">
+                        Answer
+                    </td>
+                    <td class="answerWidth">
+                        Rating
+                    </td>
                 </tr>
+                <tr *ngFor="let answer of retrievedAnswers" class="answer-text">
+                    <td class="answerWidth">
+                        {{answer.feedbackid}}
+                    </td>
+                    <td class="answerWidth">
+                        {{answer.question_name}}
+                    </td>
+                    <td class="answerWidth">
+                        {{answer.review}}
+                    </td>
+                    <td class="answerWidth">
+                        {{answer.rating}}
+                    </td>
+                </tr> -->
             </table>
         </mat-card>
+
+        <button (click)="test()">
+            test
+        </button>
     </div>    
 </body>
 

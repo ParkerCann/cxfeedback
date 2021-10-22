@@ -4,17 +4,10 @@ mat-stepper {
   background-color: lightblue;
 }
 
-td{
-    text-align: center;
-    padding: 8px;
-    width: 10vw;
-}
-
-#labels{
-  border-bottom: 1px solid black !important;
-  font-weight: 500;
-  height: 56px;
-}
+/* tr:nth-child(even){
+  background-color: #eeeeee;
+  border-spacing: 0ch;
+} */
 
 #filter-button{
     color: #0093d0;
@@ -53,17 +46,8 @@ mat-label{
     font-size: 14pt;
 }
 
-tr {
-    border-bottom: 1px #c3c3c3 solid;
-    height: 56px;
-}
-
 ::ng-deep .mat-form-field-flex{
   height: 60px;
-}
-
-.hint-text{
-  font-size: 8pt;
 }
 
 mat-select{
@@ -73,5 +57,66 @@ mat-select{
  /* add padding to text */
 ::ng-deep .mat-select-min-line{
   margin-top: 2px;
+}
 
+#feedbacklist{
+  width: 100%;
+}
+
+.headers{
+  font-size: 12pt;
+  font-weight: 500;
+  text-align: center;
+}
+
+td{
+  width: 15vw;
+}
+
+.feedbackEntry{
+  padding: 8px;
+  font-size: 12pt;
+  border-collapse: collapse;
+}
+
+.expandedDetails{
+  display: flex;
+  overflow: hidden;
+  margin-left: 96px;
+}
+
+.feedbackrow{
+  background: white;
+  height: 56px;
+}
+
+.displayCells{
+  text-align: center;
+}
+
+.feedbackrow:hover{
+  cursor: pointer;
+  background-color: ghostwhite;
+}
+
+.detail-row{
+  height: 0;
+}
+
+.mat-column-expandedDetail{
+  text-align: center;
+}
+
+.answer-labels{
+  font-size: 10pt;
+  font-weight: 500;
+}
+
+.answerWidth{
+  width: 25vw;
+  padding: 4px;
+}
+
+.answer-text:nth-child(even){
+  background-color: rgb(245, 245, 245);
 }

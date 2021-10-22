@@ -1,6 +1,8 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SharedService } from 'src/app/shared.service';
+import { updateValues, UserSettingsFormComponent } from '../user-settings-form/user-settings-form.component';
 
 
 export interface origFilt {
@@ -15,12 +17,35 @@ export interface filters {
   respondeeType: string
 }
 
+export interface answerVals {
+  question_name: string,
+  review: string,
+  rating: number
+}
+
+export interface answerValDetails {
+  [key: number]: answerVals;
+}
+
 @Component({
   selector: 'app-feedback-list',
   templateUrl: './feedback-list.component.html',
-  styleUrls: ['./feedback-list.component.css']
+  styleUrls: ['./feedback-list.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  ]),
+  ],
 })
+
 export class FeedbackListComponent implements OnInit {
+
+  columnsToDisplay_header: string[] = ['Feedback ID', 'Completed By', 'Date Completed', 'Feedback Type', 'Product', 'Respondee Type', 'Respondee', 'Call Duration', 'Date Submitted'];
+  columnsToDisplay: string[] = ['feedbackid', 'Fullname', 'datecompleted', 'feedback_name', 'product_name', 'respondee_type', 'RespondeeName', 'callduration', 'datesubmitted'];
+
+  expandedFeedback: null;
 
   filters : filters = {
     completedBy: "",
@@ -41,10 +66,6 @@ export class FeedbackListComponent implements OnInit {
     this.refreshRespondeeTypeList();
     this.refreshFeedbackTypeList();
     this.refreshDateList();
-
-    setTimeout(() => {
-      this.fillSubFeedbackList();
-    }, 1000);
   }
 
   isUser: boolean = false;
@@ -53,6 +74,13 @@ export class FeedbackListComponent implements OnInit {
   isFeedType: boolean = false;
   isRespType: boolean = false;
   chosenFilter: boolean = false;
+
+  retrievedAnswers: any = [];
+  retrievedAnswersDefaults: answerVals = {
+    question_name: "N/A",
+    review: "",
+    rating: null
+  }
 
 
   chgFilt(){
@@ -109,9 +137,11 @@ export class FeedbackListComponent implements OnInit {
   FeedbackTypeList: any=[];
   DateList: any=[];
 
+
   refreshDetailedFeedbackList(){
     this.service.getDetailedFeedbackList().subscribe(data=>{
       this.FeedbackList=data;
+      this.subFeedbackList = data;
     });
   }
   fillSubFeedbackList(){
@@ -294,4 +324,34 @@ export class FeedbackListComponent implements OnInit {
   myControlFeedType = new FormControl();
   myControlRespType = new FormControl();
 
+
+  viewAnswers(feedbackid: number){
+    this.retrievedAnswers = [];
+
+    if(feedbackid !== null){
+      this.service.getFilteredAnswerList(feedbackid).subscribe(
+        result => {
+          console.log(result);
+        if(result == ''){
+          this.retrievedAnswers.push(this.retrievedAnswersDefaults);
+          console.log("empty");
+        }
+        else {
+          for (let index = 0; index < Object.keys(result).length; index++) {
+            const element = result[index];
+            this.retrievedAnswers.push(element);
+          }
+        }},
+        error => console.log(error)
+      );
+    }
+    else if(feedbackid == null){
+      console.log("Feedbackid is null");
+    }
+    
+  }
+
+  test(){
+    console.log(this.retrievedAnswers);
+  }
 }
