@@ -1,13 +1,13 @@
 <body>
     <div class="container">
-        <div id="successConfirm" class="hidden successConfirm">
+        <div id="successConfirm" class="successConfirm" *ngIf="successfulSubmit">
             <span id="closeBtnContainer">
                 <button (click)="hideSuccess()" id="close-icon">
                     <mat-icon  aria-hidden="false" aria-label="close-icon">close</mat-icon>
                 </button>
             </span>
             
-            <div id="successConfirmText" class="hidden">
+            <div id="successConfirmText" class="">
                 <span id=""> Success! <br> Your Answer ID(s) are: </span>
                 <span id="returnedFeedbackID" [innerHTML]="answerIDText"></span>  
             </div>

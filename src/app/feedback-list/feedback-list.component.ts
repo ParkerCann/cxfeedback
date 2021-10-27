@@ -35,7 +35,7 @@ export interface answerValDetails {
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
       state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> collapsed', animate('250ms ease')),
   ]),
   ],
 })
@@ -200,6 +200,13 @@ export class FeedbackListComponent implements OnInit {
       var sortArray = displayArray.sort((a,b) => b.feedbackid - a.feedbackid);
 
       this.subFeedbackList = sortArray;
+
+      console.log(this.subFeedbackList[0]);
+
+      if(this.subFeedbackList[0] == undefined){
+        this.subFeedbackList.push( "There are no entries for the selected filter values.");
+        console.log("No entries available");
+      }
     }
 
     else if(this.origFilt.selectedVal == this.typeOfFilter[1]){
@@ -312,10 +319,15 @@ export class FeedbackListComponent implements OnInit {
     this.chosenFilter = false;
     this.origFilt.selectedVal = "";
     this.isUser = false;
+    this.filters.completedBy = "";
     this.isProd = false;
+    this.filters.product = "";
     this.isRespType = false;
+    this.filters.respondeeType = "";
     this.isDate = false;
+    this.filters.dateCompleted = "";
     this.isFeedType = false;
+    this.filters.feedbackType = "";
   }
 
   myControlUser = new FormControl();

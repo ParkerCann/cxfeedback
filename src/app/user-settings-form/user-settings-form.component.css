@@ -225,6 +225,9 @@ app-date-picker {
   background-color: snow;
 }
 
+/* 
+  This was causing the formatting error on the router change.
+  
 ::ng-deep .mat-form-field-infix {
   max-height: 32px;
   font-size: 0.5rem;
@@ -232,7 +235,7 @@ app-date-picker {
 
 ::ng-deep .mat-input-element {
   font-size: 1rem !important;
-}
+} */
 
 .hidden {
   visibility: hidden;

@@ -254,6 +254,8 @@ export class UserSettingsFormComponent implements OnInit {
   formattedDate: string;
 
   successfulSubmit: boolean = false;
+  displaySubmitSucess: boolean = false;
+  displayUpdateSuccess: boolean = false;
 
   //https://stackoverflow.com/questions/46469233/can-i-programmatically-move-the-steps-of-a-mat-horizontal-stepper-in-angular-a
   @ViewChild('stepper') private myStepper: MatStepper;
@@ -385,10 +387,8 @@ export class UserSettingsFormComponent implements OnInit {
             error => this.onHttpError(error)
           );
 
-          document.getElementById('successConfirm').classList.remove('hidden');
-          document.getElementById('successConfirmText').classList.remove('hidden');
-
           this.successfulSubmit = true;
+          this.displaySubmitSucess = true;
         }
         else if(this.successfulSubmit == true){
 
@@ -410,8 +410,7 @@ export class UserSettingsFormComponent implements OnInit {
             console.log(this.updateValues);
             
             this.alterData();
-            document.getElementById('successConfirm').classList.remove('hidden');
-            document.getElementById('successUpdateText').classList.remove('hidden');
+            this.displayUpdateSuccess = true;
           }
           
           
@@ -794,9 +793,6 @@ CarrierInputFn(event: KeyboardEvent): void {
     else if(this.successfulSubmit == true){
       this.successfulSubmit = false;
     } 
-  }
-
-  test(){
   }
 
 }

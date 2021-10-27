@@ -65,6 +65,8 @@ export class AnswerFormComponent implements OnInit {
     feedbackid: ""
   }
 
+  successfulSubmit: boolean = false;
+
   responseInputComponentClass = ResponseInputComponent;
 
   constructor(private service: SharedService,
@@ -158,8 +160,7 @@ export class AnswerFormComponent implements OnInit {
         );
       }
 
-      document.getElementById('successConfirm').classList.remove('hidden');
-      document.getElementById('successConfirmText').classList.remove('hidden');
+      this.successfulSubmit = true;
 
     }
     //Check for errors
@@ -334,7 +335,6 @@ export class AnswerFormComponent implements OnInit {
   }
 
   hideSuccess(){
-    document.getElementById('successConfirm').classList.add('hidden');
-   }
-
+    this.successfulSubmit = false;
+  }
 }

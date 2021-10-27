@@ -59,6 +59,10 @@ mat-select{
   margin-top: 2px;
 }
 
+tr{
+  border: 0.5px solid whitesmoke;
+}
+
 #feedbacklist{
   width: 100%;
 }
@@ -67,6 +71,7 @@ mat-select{
   font-size: 12pt;
   font-weight: 500;
   text-align: center;
+  color: black;
 }
 
 td{
@@ -114,7 +119,7 @@ td{
 
 .answerWidth{
   width: 25vw;
-  padding: 4px;
+  padding: 8px;
 }
 
 .answer-text:nth-child(even){

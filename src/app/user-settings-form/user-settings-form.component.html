@@ -1,6 +1,6 @@
 
 <body>
-    <div id="successConfirm" class="successConfirm hidden">
+    <div id="successConfirm" class="successConfirm" *ngIf="displaySubmitSucess">
         <span id="closeBtnContainer">
             <button (click)="hideSuccess()" id="close-icon">
                 <mat-icon aria-hidden="false" aria-label="close-icon">close</mat-icon>
@@ -12,7 +12,7 @@
             <span id="returnedFeedbackID" class="spanSize" [innerHTML]="returnedFeedbackIDText"></span>  
         </div>
     </div>
-    <div id="updateConfirm" class="successConfirm hidden">
+    <div id="updateConfirm" class="successConfirm" *ngIf="displayUpdateSuccess">
         <span id="closeBtnContainer">
             <button (click)="hideUpdate()" id="close-icon">
                 <mat-icon aria-hidden="false" aria-label="close-icon">close</mat-icon>
@@ -52,7 +52,7 @@
                                 name="username"
                                 [(ngModel)]="Defaults.conductor_id"
                                 class="form-select label-buffer" 
-                                placeholder="Select who completed this feedback."
+                                placeholder="Select who gathered this feedback"
                                 aria-label="Username" 
                                 [formControl]="myControlName" 
                                 [matAutocomplete]="autoUsername"
@@ -104,7 +104,7 @@
                                 [(ngModel)]="Defaults.respondeeTypeId"
                                 class="form-select label-buffer" 
                                 md-min-length="0"
-                                placeholder="Select what type the Respondee belongs to."
+                                placeholder="Select what type the Respondee corresponds to"
                                 aria-label="Respondee Type" 
                                 [formControl]="myControlRespondeeType" 
                                 [matAutocomplete]="autoRespondeeType"
@@ -255,7 +255,7 @@
                                 name="product"
                                 [(ngModel)]="Defaults.productid"
                                 class="form-select label-buffer" 
-                                placeholder="Select the product related to this feedback."
+                                placeholder="Select the product related to this feedback"
                                 aria-label="Product" 
                                 [formControl]="myControlProduct" 
                                 [matAutocomplete]="autoProduct"
@@ -283,7 +283,7 @@
                                 name="feedbackType"
                                 [(ngModel)]="Defaults.feedbacktypeid"
                                 class="form-select label-buffer" 
-                                placeholder="Select the Feedback Type."
+                                placeholder="Select the Feedback Type"
                                 aria-label="Feedback Type"
                                 #trigger="matAutocompleteTrigger" 
                                 [formControl]="myControlFeedbackType" 
@@ -336,10 +336,6 @@
                     (click)="switchUpdate()"
                     matTooltip="Clicking this will allow you to create new feedback submissions."></app-regular-secondary-btn>
     </div>
-
-    <button (click)="test()">
-
-    </button>
 
     </mat-step>
         <mat-step>
