@@ -57,12 +57,12 @@
                     [dataSource]="this.subFeedbackList" 
                     multiTemplateDataRows>
 
-                <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay" class="totalRows">
+                <ng-container matColumnDef="{{column.key}}" *ngFor="let column of displayedColumns" class="totalRows">
                     <th mat-header-cell *matHeaderCellDef class="headers">
-                        {{column}}
+                        {{column.header}}
                     </th>
                     <td mat-cell *matCellDef="let feedback" class="displayCells" (click)="viewAnswers(feedback)">
-                        {{feedback[column]}}
+                        {{feedback[column.key]}}
                     </td>
                 </ng-container>
 
@@ -106,8 +106,8 @@
                     </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
-                <tr mat-row *matRowDef="let feedback; columns: columnsToDisplay;"
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsKeys; sticky: true"></tr>
+                <tr mat-row *matRowDef="let feedback; columns: displayedColumnsKeys;"
                     class="feedbackrow"
                     [class.example-expanded-row]="expandedFeedback === feedback"
                     (click)="expandedFeedback = expandedFeedback === feedback ? null : feedback">

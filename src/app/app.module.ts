@@ -34,6 +34,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTableModule} from '@angular/material/table';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 
 //import {enableProdMode} from '@angular/core';
@@ -79,7 +80,9 @@ import {MatTableModule} from '@angular/material/table';
     MatTooltipModule,
     MatTableModule
     ],
-  providers: [SharedService],
+  providers: [SharedService, 
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -42,8 +42,65 @@ export interface answerValDetails {
 
 export class FeedbackListComponent implements OnInit {
 
-  columnsToDisplay_header: string[] = ['Feedback ID', 'Completed By', 'Date Completed', 'Feedback Type', 'Product', 'Respondee Type', 'Respondee', 'Call Duration', 'Date Submitted'];
-  columnsToDisplay: string[] = ['feedbackid', 'Fullname', 'datecompleted', 'feedback_name', 'product_name', 'respondee_type', 'RespondeeName', 'callduration', 'datesubmitted'];
+  columnsToDisplay_header: string[] = ['Feedback ID', 
+  'Completed By', 
+  'Date Completed', 
+  'Feedback Type', 
+  'Product', 
+  'Respondee Type', 
+  'Respondee', 
+  'Call Duration', 
+  'Date Submitted'];
+
+  columnsToDisplay: string[] = ['feedbackid', 
+  'Fullname', 
+  'datecompleted', 
+  'feedback_name', 
+  'product_name', 
+  'respondee_type', 
+  'RespondeeName', 
+  'callduration', 
+  'datesubmitted'];
+
+  displayedColumnsKeys: string[];
+  displayedColumns= [
+    {
+      key: 'feedbackid',
+      header: 'Feedback ID'
+    },
+    {
+      key: 'Fullname',
+      header: 'Completed By'
+    },
+    {
+      key: 'datecompleted',
+      header: 'Date Completed'
+    },
+    {
+      key: 'feedback_name',
+      header: 'Feedback Type'
+    },
+    {
+      key: 'product_name',
+      header: 'Product'
+    },
+    {
+      key: 'respondee_type',
+      header: 'Respondee Type'
+    },
+    {
+      key: 'RespondeeName',
+      header: 'Respondee'
+    },
+    {
+      key: 'callduration',
+      header: 'Call Duration'
+    },
+    {
+      key: 'datesubmitted',
+      header: 'Date Submitted'
+    }
+  ];
 
   expandedFeedback: null;
 
@@ -66,6 +123,7 @@ export class FeedbackListComponent implements OnInit {
     this.refreshRespondeeTypeList();
     this.refreshFeedbackTypeList();
     this.refreshDateList();
+    this.displayedColumnsKeys = this.displayedColumns.map(col => col.key);
   }
 
   isUser: boolean = false;
