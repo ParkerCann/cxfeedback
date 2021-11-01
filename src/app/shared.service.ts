@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class SharedService {
 
+  CarrierSearchResults;
+
   readonly APIUrl="http://cxfeedbackservice.tql.com/api";
+  //readonly APIUrl="http://localhost:54843/api";
 
   constructor(private http:HttpClient) { }
 
@@ -90,5 +93,11 @@ export class SharedService {
   updateFeedback(val:any){
     return this.http.put(this.APIUrl+'/feedback', val)
   }
+
+  // public getCarrierContactData(CarrierId: number): Observable<CarrierSearchResults[]> {
+  //   return this.http.get<CarrierSearchResults[]>(environment.carrierSearchUrl + CarrierId);
+  //   }
   
 }
+
+

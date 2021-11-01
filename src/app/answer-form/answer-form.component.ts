@@ -183,6 +183,14 @@ export class AnswerFormComponent implements OnInit {
     container.insertAdjacentElement('beforeend', create);
   }
 
+  test(){
+    const storedData = localStorage.getItem('myData');
+    const parsedData = JSON.parse(storedData);
+    const mapped = Object.keys(parsedData).map(key => ({type: key, value: parsedData[key]}));
+
+    console.log(mapped);
+  }
+
   getData() {
     const storedData = localStorage.getItem('myData');
     const parsedData = JSON.parse(storedData);
@@ -194,17 +202,19 @@ export class AnswerFormComponent implements OnInit {
 
 
     //look into ngModel for this instead of touching the DOM
-    if(mapped[0].value.FullName != undefined){
-      this.respondeeText = (mapped[0].value.FullName);
-    }
-    else if(mapped[0].value.CarrierName != undefined){
-      this.respondeeText = (mapped[0].value.CarrierName);
-    }
-    else if(mapped[0].value.CustomerName != undefined){
-      this.respondeeText = (mapped[0].value.CustomerName);
-    }
-    else{
+    if(mapped[0].value == null){
       this.respondeeText = "None";
+    }
+    else if(mapped[0].value != null){
+      if(mapped[0].value.FullName != null){
+        this.respondeeText = (mapped[0].value.FullName);
+      }
+      else if(mapped[0].value.CarrierName != null){
+        this.respondeeText = (mapped[0].value.CarrierName);
+      }
+      else if(mapped[0].value.CustomerName != null){
+        this.respondeeText = (mapped[0].value.CustomerName);
+      }
     }
     this.userNameText = (mapped[4].value.FullName);
     this.dateCompletedText = (formatDate(mapped[3].value, 'MM/dd/YYYY', 'en-US'));

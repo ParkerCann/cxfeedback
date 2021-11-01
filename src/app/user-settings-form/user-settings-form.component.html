@@ -40,7 +40,7 @@
                 <mat-card class="crdInputGroup">
                     <mat-card id="crdUsername" class="halfCard">
                         <mat-label for="username"> Name: </mat-label>
-                        <span id="username-error" class="hidden popup">
+                        <span id="username-error" class="popup" *ngIf="usernameError">
                             Please enter a username.
                         </span>
                         <div *ngIf=""> <!--have ng if to disable input while checkbox is checked -->
@@ -72,17 +72,18 @@
 
                     <mat-card id="crdCalendar" class="halfCard">
                         <mat-label id="lblCalendar">Select a date:</mat-label>
-                        <span id="date-error" class="hidden popup">
+                        <span id="date-error" class="popup" *ngIf="dateError">
                             Please choose a vaild date.
                         </span>
                         <mat-form-field appearance="fill" id="datepicker">
                             <mat-label>Date Completed: </mat-label>
-                            <input matInput class="label-buffer"
+                            <input matInput style="padding-top: 8px;"
                                         id="datepicker" name="datepicker" 
                                         [matDatepicker]="picker1" 
                                         (value)="formattedDate"
                                         [(ngModel)]="Defaults.datecompleted"
-                                        (dateChange)="clrDateAlert()">
+                                        (dateChange)="clrDateAlert()"
+                                        >
                                         
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1 ></mat-datepicker>
@@ -93,7 +94,7 @@
                 <mat-card class="crdInputGroup">
                     <mat-card id="crdRespondeeType" class="noOutline">
                         <mat-label for="respondeeType"> Respondee Type: </mat-label>
-                        <span id="respondeetype-error" class="hidden popup">
+                        <span id="respondeetype-error" class="popup" *ngIf="respondeeTypeError">
                             Please enter a respondee type.
                         </span>
                         <mat-error id="respondeetype-val" class="hidden" *ngIf="myControlRespondeeType.errors?.requireMatch">
@@ -129,10 +130,10 @@
                 <mat-card *ngIf="chkEmployee" class="">
                     <mat-card id="crdRespondee" class="regCard">
                         <mat-label for="respondee"> Associate Name: </mat-label> 
-                        <span id="respondee-error" class="hidden popup">
+                        <span id="respondee-error" class="popup" *ngIf="respondeeError">
                             Please enter a respondee. If there is none, then check the checkbox below.
                         </span>
-                        <mat-error id="respondee-val" class="hidden popup" *ngIf="myControlEmployee.errors?.requireMatch">
+                        <mat-error id="respondee-val" class="hidden" *ngIf="myControlEmployee.errors?.requireMatch">
                             Selection must correspond to an available option.
                         </mat-error>    
                         <h5> *Please attempt to search either the last or first name</h5>
@@ -168,7 +169,7 @@
                 <mat-card *ngIf="chkCustomer" class="">
                     <mat-card id="crdRespondee" class="regCard show-above-overlay">
                         <mat-label for="respondee"> Customer Name: </mat-label>
-                        <span id="respondee-error" class="hidden popup">
+                        <span id="respondee-error" class="popup" *ngIf="respondeeError">
                             Please enter a respondee. If there is none, then check the checkbox below.
                         </span>
                         <mat-error id="respondee-val" class="hidden" *ngIf="myControlCustomer.errors?.requireMatch">
@@ -206,7 +207,7 @@
                 <mat-card *ngIf="chkCarrier" class="">
                     <mat-card id="crdRespondee" class="regCard show-above-overlay">
                         <mat-label for="respondee"> Carrier Name: </mat-label>
-                        <span id="respondee-error" class="hidden popup">
+                        <span id="respondee-error" class="popup" *ngIf="respondeeError">
                             Please enter a respondee. If there is none, then check the checkbox below.
                         </span>
                         <mat-error id="respondee-val" class="hidden" *ngIf="myControlCarrier.errors?.requireMatch">
@@ -245,7 +246,7 @@
                 <mat-card class="crdInputGroup">
                     <mat-card id="crdProduct" class="halfCard show-above-overlay">
                         <mat-label for="product"> Product: </mat-label>
-                        <span id="product-error" class="hidden popup">
+                        <span id="product-error" class="popup" *ngIf="productError">
                             Please enter a product.
                         </span>
                         <mat-error id="username-val" class="hidden" *ngIf="myControlProduct.errors?.requireMatch">
@@ -273,7 +274,7 @@
 
                     <mat-card id="crdFeedbackType" class="halfCard show-above-overlay">
                         <mat-label for="feedbackType"> Feedback Type: </mat-label>
-                        <span id="feedbacktype-error" class="hidden popup">
+                        <span id="feedbacktype-error" class="popup" *ngIf="feedbackTypeError">
                             Please choose a feedback type.
                         </span>
                         <mat-error id="username-val" class="hidden" *ngIf="myControlFeedbackType.errors?.requireMatch">
@@ -288,8 +289,7 @@
                                 #trigger="matAutocompleteTrigger" 
                                 [formControl]="myControlFeedbackType" 
                                 [matAutocomplete]="autoFeedbackType"
-                                id="autoFeedbackType"
-                                (keyup)="FeedbackTypeInputFn($event)">
+                                id="autoFeedbackType">
 
                         <mat-autocomplete #autoFeedbackType="matAutocomplete"
                                             [displayWith]="displayFeedbackTypeFn" 

@@ -401,7 +401,6 @@ export class FeedbackListComponent implements OnInit {
     if(feedbackid !== null){
       this.service.getFilteredAnswerList(feedbackid).subscribe(
         result => {
-          console.log(result);
         if(result == ''){
           this.retrievedAnswers.push(this.retrievedAnswersDefaults);
           console.log("empty");

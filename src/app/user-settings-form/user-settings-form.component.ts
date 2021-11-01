@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ɵɵsetComponentScope } from '@angular/core';
 import { NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { DataService } from '../data/data.service';
 import { Defaults } from '../data/defaults';
@@ -58,13 +58,13 @@ export class UserSettingsFormComponent implements OnInit {
 
 //defaults of default interface
   originalDefaults : Defaults = {
-    respondeeid: 0,
-    productid: 0,
-    feedbacktypeid: 0,
+    respondeeid: null,
+    productid: null,
+    feedbacktypeid: null,
     datecompleted: "",
-    conductor_id: 0,
+    conductor_id: null,
     callduration: "",
-    respondeeTypeId: 0,
+    respondeeTypeId: null,
     datesubmitted: ""
   };
 
@@ -270,10 +270,17 @@ export class UserSettingsFormComponent implements OnInit {
 
   defaultsBackup: any = [];
 
+  usernameError: boolean = false;
+  dateError: boolean = false;
+  respondeeTypeError: boolean = false;
+  respondeeError: boolean = false;
+  productError: boolean = false;
+  feedbackTypeError: boolean = false;
+  calldurationError: boolean = false;
+
 
   //validation and changes to run on submisison
   onSubmit(form: NgForm) {
-
     this.defaultsBackup = JSON.stringify(this.Defaults);
     
     const durationString = document.getElementById('dp-duration-value').innerHTML;
@@ -290,54 +297,39 @@ export class UserSettingsFormComponent implements OnInit {
     }
     this.Defaults.callduration = durationValue;
 
-
     //check for nulls
-    if(this.Defaults.conductor_id == 0){
-
+    if(this.Defaults.conductor_id == null){
+      this.usernameError = true;
       document.getElementById("autoUsername").classList.add("alert");
-      document.getElementById("username-error").classList.remove("hidden");
-    } 
-    else if(this.Defaults.respondeeTypeId == 0){
 
+    } 
+    else if(this.Defaults.respondeeTypeId == null){
+      this.respondeeTypeError = true;
       document.getElementById("autoRespondeetype").classList.add("alert");
-      document.getElementById("respondeetype-error").classList.remove("hidden");
+
     } 
-    else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] > 1){
-      
-      var autoRespondee = document.getElementById("autoRespondee");
-      var respondeeError = document.getElementById("respondee-error");
-
-      if (autoRespondee != null){
-        autoRespondee.classList.add("alert");
-      }
-      if (respondeeError != null && this.checked == false){
-        respondeeError.classList.remove("hidden");
-      }
+    else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] > 1 && this.Defaults.respondeeid[Object.keys(this.Defaults.respondeeid)[0]] == null){
+      document.getElementById("autoRespondee").classList.add("alert");
+      this.respondeeError = true;
     }
-    else if(this.Defaults.productid == 0){
-
+    else if(this.Defaults.productid == null){
       document.getElementById("autoProduct").classList.add("alert");
-      document.getElementById("product-error").classList.remove("hidden");
+      this.productError = true;
     }
-    else if(this.Defaults.feedbacktypeid == 0){
-
+    else if(this.Defaults.feedbacktypeid == null){
       document.getElementById("autoFeedbackType").classList.add("alert");
-      document.getElementById("feedbacktype-error").classList.remove("hidden");
+      this.feedbackTypeError = true;
     }
     else if(this.Defaults.datecompleted == ""){
-
-      document.getElementById("date-error").classList.remove("hidden");
+      this.dateError = true;
     }
     else if(document.getElementById('datepicker').classList.contains('ng-invalid')){
-
-      document.getElementById("date-error").classList.remove("hidden");
+      this.dateError = true;
     }
     //check if any errors exist on the DOM, and if there are any, display them
     //https://stackoverflow.com/questions/49425706/how-to-stop-mat-autocomplete-to-take-custom-user-input-values-apart-from-given-o
     else if(document.querySelectorAll('mat-error').length > 0)
     {
-      if(document.querySelectorAll('mat-error').length > 0)
-      {
        console.log("There is an error");
        console.log(document.querySelectorAll('mat-error'));
        var errors = document.querySelectorAll('mat-error');
@@ -345,43 +337,28 @@ export class UserSettingsFormComponent implements OnInit {
        for(let i=0; i < numOfErrors; i++){
          console.log(errors[i]);
          errors[i].classList.remove("hidden");
-       }
-      }
+        }
     }
     else {
-
-      // if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] == 1 && this.checked == true){
-      //   this.myControlCarrier.clearValidators();
-      // }
-      // else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] == 2 && this.checked == true){
-      //   this.myControlCustomer.clearValidators();
-      // }
-      // else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] == 3 && this.checked == true){
-      //   this.myControlEmployee.clearValidators();
-      // }
-
-      this.myControlCarrier.clearValidators();
-      this.myControlCustomer.clearValidators();
-      this.myControlEmployee.clearValidators();
-
       //only get the id from the whole Object
       this.Defaults.conductor_id = this.Defaults.conductor_id[Object.keys(this.Defaults.conductor_id)[0]];
       this.Defaults.respondeeTypeId = this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]];
-      if(this.checked == false){
-        this.Defaults.respondeeid = this.Defaults.respondeeid[Object.keys(this.Defaults.respondeeid)[0]];
+      if(this.chkCarrier==true || this.chkCustomer==true || this.chkEmployee==true){
+        console.log(Object.values(this.Defaults.respondeeid));
+        this.Defaults.respondeeid = Object.values(this.Defaults.respondeeid)[0];
       }
-      else if(this.checked == true){
+      else{
         this.Defaults.respondeeid = null;
       }
       this.Defaults.productid = this.Defaults.productid[Object.keys(this.Defaults.productid)[0]];
       this.Defaults.feedbacktypeid = this.Defaults.feedbacktypeid[Object.keys(this.Defaults.feedbacktypeid)[0]];
       this.Defaults.datesubmitted = document.getElementById('currentDateTime').innerText.toString();
-      
       //posts the form and returns the submitted info
       if(form.valid) {
-        this.removeFeedbackId();
         
         if(this.successfulSubmit == false){
+          this.removeFeedbackId();
+
             this.service.addFeedback(this.Defaults).subscribe(
             result => this.setFeedbackId(result.toString()),
             error => this.onHttpError(error)
@@ -628,11 +605,15 @@ displayEmployeeFn(SubEmployeeList) {
 }
 EmployeeInputFn(event: KeyboardEvent): void {
   this.EmployeeName.FullName = this.myControlEmployee.value;
-  if(this.EmployeeName.FullName !== ""){
+  if(this.EmployeeName.FullName !== "" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Enter" && event.key !== "Tab"){
     this.service.getFilteredEmployeeList(this.EmployeeName).subscribe(
       result => this.subEmployeeList = (result),
       error => this.onHttpError(error)
     );
+  }
+
+  if(event.key == "Enter"){
+    this.selectOption();
   }
     
 }
@@ -641,14 +622,18 @@ displayCustomerFn(SubCustomerList) {
   return SubCustomerList?.CustomerName;
 }
 CustomerInputFn(event: KeyboardEvent): void {
+  
   this.CustomerName.CustomerName = this.myControlCustomer.value;
-  if(this.CustomerName.CustomerName !== ""){
+  if(this.CustomerName.CustomerName !== "" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Enter" && event.key !== "Tab"){
     this.service.getFilteredCustomerList(this.CustomerName).subscribe(
       result => this.subCustomerList = (result),
       error => this.onHttpError(error)
     );
   }
 
+  if(event.key == "Enter"){
+    this.selectOption();
+  }
     
 }
 
@@ -657,11 +642,15 @@ displayCarrierFn(subCarrierList) {
 }
 CarrierInputFn(event: KeyboardEvent): void {
   this.CarrierName.CarrierName = this.myControlCarrier.value;
-  if(this.CarrierName.CarrierName !== ""){
+  if(this.CarrierName.CarrierName !== "" && event.key !== "ArrowDown" && event.key !== "ArrowUp" && event.key !== "Enter" && event.key !== "Tab"){
     this.service.getFilteredCarrierList(this.CarrierName).subscribe(
       result => this.subCarrierList = (result),
       error => this.onHttpError(error)
     );  
+  }
+
+  if(event.key == "Enter"){
+    this.selectOption();
   }
   
 }
@@ -669,31 +658,31 @@ CarrierInputFn(event: KeyboardEvent): void {
 
  clrUsernameAlert(){
   document.getElementById("autoUsername").classList.remove("alert");
-  document.getElementById("username-error").classList.add("hidden");
+  this.usernameError = false;
  }
 
  clrRespondeetypeAlert(){
   document.getElementById("autoRespondeetype").classList.remove("alert");
-  document.getElementById("respondeetype-error").classList.add("hidden");
+  this.respondeeTypeError = false;
  }
 
  clrRespondeeAlert(){
   document.getElementById("autoRespondee").classList.remove("alert");
-  document.getElementById("respondee-error").classList.add("hidden");
+  this.respondeeError = false;
  }
 
  clrProductAlert(){
   document.getElementById("autoProduct").classList.remove("alert");
-  document.getElementById("product-error").classList.add("hidden");
+  this.productError = false;
  }
 
  clrFeedbackTypeAlert(){
   document.getElementById("autoFeedbackType").classList.remove("alert");
-  document.getElementById("feedbacktype-error").classList.add("hidden");
+  this.feedbackTypeError = false;
  }
 
  clrDateAlert(){
-  document.getElementById("date-error").classList.add("hidden");
+  this.dateError = false;
  }
 
  refreshBtn() {
@@ -764,7 +753,7 @@ CarrierInputFn(event: KeyboardEvent): void {
 
   getFeedbackId() {
     const storedData = localStorage.getItem('currentFeedbackID');
-    const parsedData = JSON.parse(storedData);
+    const parsedData = JSON.stringify(storedData);
     
     return parsedData;
    }
@@ -789,10 +778,35 @@ CarrierInputFn(event: KeyboardEvent): void {
   switchUpdate(){
     if(this.successfulSubmit == false){
       this.successfulSubmit = true;
+      this.getData();
     }
     else if(this.successfulSubmit == true){
       this.successfulSubmit = false;
+      this.Defaults = this.originalDefaults;
     } 
+  }
+
+  selectOption(){
+    //if classlist includes mat-active and the dropdown is .focus, have the enter key select the mat-active option and tab to next option
+
+    const eventTarget = document.getElementsByClassName('mat-autocomplete-visible')[0];
+    if(eventTarget !== undefined){
+      const focusedOption = eventTarget.children;
+      
+      if(focusedOption.length > 0){
+        for (let index = 0; index < focusedOption.length; index++) {
+          const element = focusedOption[index];
+          const elementText = element.childNodes[1].textContent;
+          if(element.classList.contains('mat-active')){
+            return element;
+            
+          }
+          
+          
+        }
+      }  
+    }
+    
   }
 
 }
