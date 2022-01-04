@@ -14,7 +14,6 @@ interface responseInput {
   rating: number
 }
 
-
 @Component({
   selector: 'app-response-input',
   templateUrl: './response-input.component.html',
@@ -43,6 +42,7 @@ export class ResponseInputComponent implements OnInit {
     this.refreshFeedbackList();
     this.refreshQuestionList();
     this.cdref.detectChanges();
+    
   }
 
   FeedbackList: any=[];
@@ -59,6 +59,7 @@ export class ResponseInputComponent implements OnInit {
   refreshQuestionList(){
     this.service.getQuestionList().subscribe(data=>{
       this.QuestionList=data;
+      this.groupQuestions(data);
     });
   }
 
@@ -78,6 +79,7 @@ export class ResponseInputComponent implements OnInit {
     return null;
   }
 
+  myControlQuestionSource = new FormControl(undefined, [Validators.required, this.requireQuestionMatch.bind(this)]);
   myControlQuestion = new FormControl(undefined, [Validators.required, this.requireQuestionMatch.bind(this)]);
   myControlResponse = new FormControl("", [Validators.required]);
   myControlRating = new FormControl("", [Validators.max(5), Validators.min(1), Validators.maxLength(1)]);
@@ -85,6 +87,10 @@ export class ResponseInputComponent implements OnInit {
 
   displayQuestionName(QuestionList){
     return QuestionList?.question_name;
+  }
+
+  displayQuestionSource(QuestionList){
+    return QuestionList?.question_source;
   }
 
   QuestionInputFn(event: KeyboardEvent): void {
@@ -103,6 +109,40 @@ export class ResponseInputComponent implements OnInit {
     else if(this.myControlRating.status == "VALID"){
       document.getElementById('responseInput').classList.remove('invalid');
     }
+  }
+
+  //https://stackoverflow.com/questions/40774697/how-to-group-an-array-of-objects-by-key
+  groupQuestions(data){
+    var groupBy = function(xs, key) {
+      return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+      }, {});
+    };
+
+    var groupedList = (groupBy(data, 'question_source'));
+
+    var groupedListKeys = (Object.keys(groupedList));
+
+    for (let index = 0; index < groupedListKeys.length; index++) {
+      const element = groupedListKeys[index];
+      this.subQuestionList.push(element);
+    }
+  }
+
+  groupFilter(_filter: String){
+    var groupBy = function(xs, key) {
+      return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+      }, {});
+    };
+
+    console.log(_filter);
+
+    var groupedList = (groupBy(this.QuestionList, 'question_source'));
+    console.log(groupedList._filter);
+    console.log(groupedList.Miscellaneous);
   }
 
 }

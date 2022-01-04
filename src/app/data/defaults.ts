@@ -6,5 +6,6 @@ export interface Defaults {
     callduration: string,
     datecompleted: string,
     respondeeTypeId: number,
-    datesubmitted: string
+    datesubmitted: string,
+    meta_rating: number
 }

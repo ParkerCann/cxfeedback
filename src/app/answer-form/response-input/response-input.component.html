@@ -6,6 +6,23 @@
                 Select a question:
             </mat-label>
 
+            <input type="text"
+                    name="question"
+                    class="form-select label-buffer"
+                    placeholder="(Optional) Select a Question Source"
+                    aria-label="question"
+                    [formControl]="myControlQuestionSource"
+                    [matAutocomplete]="autoQuestionSource"
+                    id="autoQuestionSource"
+                    (keyup)="QuestionInputFn($event)"
+                    required>
+            <mat-autocomplete #autoQuestionSource="matAutocomplete"
+            (optionSelected)="groupFilter(this.myControlQuestionSource.value)">
+                    <mat-option *ngFor="let question of subQuestionList"
+                                [value]="question">
+                                {{question || 'Loading...'}}
+                    </mat-option>
+            </mat-autocomplete>
             <div class="buffer">  </div>
 
             <input type="text"
@@ -53,5 +70,9 @@
             </div>
         </mat-card>
 </form>
+
+<button type="button" (click)="groupFilter(this.myControlQuestionSource.value)">
+    test
+</button>
 
 

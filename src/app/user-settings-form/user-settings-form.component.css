@@ -245,3 +245,68 @@ app-date-picker {
 input:disabled{
   background: lightgrey;
 }
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #0093d0!important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #0093d0;
+}
+
+.call-duration{
+  background-color: snow;
+  color: grey;
+  border: 1px #c3c3c3 solid;
+  padding: 8px;
+  border-radius: 4px;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 13pt;
+  width: 99%;
+}
+
+::ng-deep .mat-select-placeholder{
+  color: grey;
+}
+
+.mat-options{
+  font-size: 12pt;
+}
+
+.switchViewIcon{
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+
+.metaRating{
+  width: 40px;
+  background-color: snow;
+  padding: 8px;
+  border: 1px #c3c3c3 solid;
+  border-radius: 4px;
+}
+
+#metaRatingContainer{
+  margin-top: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.invalid{
+  border: 2px solid red;
+}
+
+.refresh-icon{
+  transform: scale(0.75);
+  /* border: 1px gold solid; */
+}

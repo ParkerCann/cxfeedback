@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterModule, Routes } from '@angular/router';
 
 import { UserSettingsFormComponent } from './user-settings-form/user-settings-form.component';
 import { AnswerFormComponent } from './answer-form/answer-form.component';
@@ -14,7 +14,22 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  constructor(private router: Router){
+    router.events.forEach((event) => {
+      if(event instanceof NavigationStart) {
+        //Trying to see if I can get the page to refresh after switching pages. Might just need to add the window reload to the navigation buttons.
+        //console.log("router change");
+        //window.location.reload();
+      }
+      // NavigationStart
+      // NavigationEnd
+      // NavigationCancel
+      // NavigationError
+      // RoutesRecognized
+    });
+  }
+}

@@ -71,5 +71,25 @@ body {
       pointer-events: none;
   }
 
+  .hint-text{
+    font-size: 8pt;
+    color: lightgrey;
+    padding-left: 4px;
+  }
+
+.floating-button:hover{
+    color: #29a1d4;
+}
+
+.floating-button:active{
+    color:#007eb4;
+}
+
+  .floating-button{
+    color: #0093d0;
+    font-size: 12pt;
+    padding: 12px;
+    float:right;
+  }
 
   

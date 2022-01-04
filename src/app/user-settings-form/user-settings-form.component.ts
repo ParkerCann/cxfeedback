@@ -13,6 +13,8 @@ import { MatStepper } from '@angular/material/stepper';
 import { AnswerFormComponent } from '../answer-form/answer-form.component';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ConstantPool } from '@angular/compiler';
 
 
 //https://www.youtube.com/watch?v=4a9VxZjnT7E&t=1011s
@@ -43,7 +45,13 @@ export interface updateValues {
   callduration: string,
   respondeeTypeId: number,
   datesubmitted: string,
-  feedbackid: string
+  feedbackid: string,
+  meta_rating: number
+}
+
+export interface callDuration {
+  id: number,
+  name: string
 }
 
 @Component({
@@ -56,6 +64,44 @@ export class UserSettingsFormComponent implements OnInit {
 
   @ViewChild(AnswerFormComponent) child;
 
+  callDurations: callDuration[] = [
+  {
+    id: 1,
+    name: "None"
+  },
+  {
+    id: 2,
+    name: "Less than a minute"
+  },
+  {
+    id: 3,
+    name: "Less than 2.5 minutes"
+  },
+  {
+    id: 4,
+    name: "Less than 5 minutes"
+  },
+  {
+    id: 5,
+    name: "Between 5-10 minutes"
+  },
+  {
+    id: 6,
+    name: "Between 10-15 minutes"
+  },
+  {
+    id: 7,
+    name: "Between 15-20 minutes"
+  },
+  {
+    id: 8,
+    name: "Between 20-30 minutes"
+  },
+  {
+    id: 9,
+    name: "30+ minutes"
+  }]
+
 //defaults of default interface
   originalDefaults : Defaults = {
     respondeeid: null,
@@ -65,19 +111,21 @@ export class UserSettingsFormComponent implements OnInit {
     conductor_id: null,
     callduration: "",
     respondeeTypeId: null,
-    datesubmitted: ""
+    datesubmitted: "",
+    meta_rating: null
   };
 
   updateValues : updateValues = {
-    respondeeid: 0,
-    productid: 0,
-    feedbacktypeid: 0,
+    respondeeid: null,
+    productid: null,
+    feedbacktypeid: null,
     datecompleted: "",
-    conductor_id: 0,
+    conductor_id: null,
     callduration: "",
-    respondeeTypeId: 0,
+    respondeeTypeId: null,
     datesubmitted: "",
-    feedbackid: ""
+    feedbackid: "",
+    meta_rating: null
   }
 
   EmployeeName: EmployeeName = {
@@ -104,8 +152,9 @@ export class UserSettingsFormComponent implements OnInit {
   customOutput: string;
   form: any;
 
-  constructor(private dataservice: DataService,
-              private service: SharedService) { }
+  constructor(private service: SharedService) { 
+                
+              }
 
   ProductList:any=[];
   subProductList: any[] = this.ProductList;
@@ -211,29 +260,37 @@ export class UserSettingsFormComponent implements OnInit {
   //make sure that entered values correspond to an existing entry
   private requireEmployeeMatch(control: FormControl): ValidationErrors | null {
     const selection: any = control.value;
-    if (this.subEmployeeList && this.subEmployeeList.indexOf(selection) < 0) {
+    if(this.checked == true){
+      return null;
+    }
+    else if (this.subEmployeeList && this.subEmployeeList.indexOf(selection) < 0) {
       return { requireMatch: true };
     }
+    
     return null;
   }
   //make sure that entered values correspond to an existing entry
   private requireCustomerMatch(control: FormControl): ValidationErrors | null {
     const selection: any = control.value;
-    if (this.subCustomerList && this.subCustomerList.indexOf(selection) < 0) {
+    if(this.checked == true){
+      return null;
+    }
+    else if (this.subCustomerList && this.subCustomerList.indexOf(selection) < 0) {
       return { requireMatch: true };
     }
+    
     return null;
   }
   //make sure that entered values correspond to an existing entry
   private requireCarrierMatch(control: FormControl): ValidationErrors | null {
     const selection: any = control.value;
-    if (this.subCarrierList && this.subCarrierList.indexOf(selection) < 0) {
-      return { requireMatch: true };
-    }
-    else if(selection == 0){
-      this.myControlCarrier.clearValidators();
+    if(this.checked == true){
       return null;
     }
+    else if (this.subCarrierList && this.subCarrierList.indexOf(selection) < 0) {
+      return { requireMatch: true };
+    }
+    
     return null;
   }
 
@@ -241,6 +298,7 @@ export class UserSettingsFormComponent implements OnInit {
   private requireFeedbackTypeMatch(control: FormControl): ValidationErrors | null {
     const selection: any = control.value;
     if (this.FeedbackTypeList && this.FeedbackTypeList.indexOf(selection) < 0) {
+      console.log("error");
       return { requireMatch: true };
     }
     return null;
@@ -308,7 +366,7 @@ export class UserSettingsFormComponent implements OnInit {
       document.getElementById("autoRespondeetype").classList.add("alert");
 
     } 
-    else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] > 1 && this.Defaults.respondeeid[Object.keys(this.Defaults.respondeeid)[0]] == null){
+    else if(this.Defaults.respondeeTypeId[Object.keys(this.Defaults.respondeeTypeId)[0]] > 1 && this.Defaults.respondeeid[Object.keys(this.Defaults.respondeeid)[0]] == null && this.checked == false){
       document.getElementById("autoRespondee").classList.add("alert");
       this.respondeeError = true;
     }
@@ -360,7 +418,9 @@ export class UserSettingsFormComponent implements OnInit {
           this.removeFeedbackId();
 
             this.service.addFeedback(this.Defaults).subscribe(
-            result => this.setFeedbackId(result.toString()),
+            result => {this.setFeedbackId(result.toString()), 
+                      this.returnedFeedbackIDText = result.toString(),
+                      this.child.feedbackIDText = result.toString()},
             error => this.onHttpError(error)
           );
 
@@ -382,6 +442,7 @@ export class UserSettingsFormComponent implements OnInit {
             this.updateValues.datecompleted = this.Defaults.datecompleted;
             this.updateValues.conductor_id = this.Defaults.conductor_id;
             this.updateValues.feedbackid = (localStorage.getItem('currentFeedbackID'));
+            this.updateValues.meta_rating = this.Defaults.meta_rating;
 
             console.log("updateValues:");
             console.log(this.updateValues);
@@ -392,8 +453,6 @@ export class UserSettingsFormComponent implements OnInit {
           
           
         }
-
-        this.showFeedbackID();
 
         this.removeData();
         this.setData();
@@ -415,12 +474,6 @@ export class UserSettingsFormComponent implements OnInit {
     }
   }
 
-  showFeedbackID(){
-    setTimeout(() => {
-      this.returnedFeedbackIDText = this.getFeedbackId();
-    }, 500);
-  }
-
   returnedFeedbackIDText: String;
 
   //create individual form controls
@@ -431,6 +484,7 @@ export class UserSettingsFormComponent implements OnInit {
   myControlCarrier = new FormControl(undefined, [Validators.required, this.requireCarrierMatch.bind(this)]);
   myControlProduct = new FormControl(undefined, [Validators.required, this.requireProductMatch.bind(this)]);
   myControlFeedbackType = new FormControl(undefined, [Validators.required, this.requireFeedbackTypeMatch.bind(this)]);
+  myControlMetaRating = new FormControl("", [Validators.max(5), Validators.min(1), Validators.maxLength(1)]);
 
   //default state of checkbox
   checked = false;
@@ -440,11 +494,12 @@ export class UserSettingsFormComponent implements OnInit {
     var chkbox = document.getElementById('chkbox-input') as HTMLInputElement;
     //clear error messages
     document.getElementById("autoRespondee").classList.remove("alert");
-    document.getElementById("respondee-error").classList.add("hidden");
+    this.respondeeError = false;
 
     //disable input if checkbox is checked, 
     if (chkbox.checked == true){
       auto.disabled = true;
+      this.Defaults.respondeeid = 0;
     }
     else{
       auto.disabled = false;
@@ -455,7 +510,7 @@ export class UserSettingsFormComponent implements OnInit {
     var chkbox = document.getElementById('chkbox-input') as HTMLInputElement;
     //clear error messages
     document.getElementById("autoRespondee").classList.remove("alert");
-    document.getElementById("respondee-error").classList.add("hidden");
+    this.respondeeError = false;
 
     //disable input if checkbox is checked, 
     if (chkbox.checked == true){
@@ -471,13 +526,12 @@ export class UserSettingsFormComponent implements OnInit {
     var chkbox = document.getElementById('chkbox-input') as HTMLInputElement;
     //clear error messages
     document.getElementById("autoRespondee").classList.remove("alert");
-    document.getElementById("respondee-error").classList.add("hidden");
+    this.respondeeError = false;
 
     //disable input if checkbox is checked, 
     if (chkbox.checked == true){
       auto.disabled = true;
       this.Defaults.respondeeid = 0;
-      this.form.get('respondeeid').setErrors(null);
     }
     else{
       auto.disabled = false;
@@ -689,6 +743,10 @@ CarrierInputFn(event: KeyboardEvent): void {
 
 }
 
+  resetChkBox(){
+    this.checked = false;
+  }
+
 
  chkEmployee: boolean = false;
  chkCustomer: boolean = false;
@@ -799,14 +857,24 @@ CarrierInputFn(event: KeyboardEvent): void {
           const elementText = element.childNodes[1].textContent;
           if(element.classList.contains('mat-active')){
             return element;
-            
           }
-          
-          
         }
       }  
     }
-    
   }
 
+  testView: boolean = false;
+
+  switchView(){
+    this.testView = !this.testView;
+  }
+
+  metaRatingInputValidator(event: KeyboardEvent): void{
+    if(this.myControlMetaRating.status == "INVALID"){
+      document.getElementById('metaRatingInput').classList.add('invalid');
+    }
+    else if(this.myControlMetaRating.status !== "INVALID"){
+      document.getElementById('metaRatingInput').classList.remove('invalid');
+    }
+  }
 }

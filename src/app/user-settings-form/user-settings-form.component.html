@@ -117,7 +117,7 @@
                                             [displayWith]="displayRespondeeTypeFn"
                                             (optionSelected)="clrRespondeetypeAlert()"
                                             (optionSelected)="chkRespondeeType()"
-                                            >
+                                            (optionSelected)="resetChkBox()">
                             <mat-option *ngFor="let respondeetype of subRespondeeTypeList" 
                                         [value]="respondeetype">
                                 {{respondeetype.respondee_type}}
@@ -133,9 +133,11 @@
                         <span id="respondee-error" class="popup" *ngIf="respondeeError">
                             Please enter a respondee. If there is none, then check the checkbox below.
                         </span>
+                        
                         <mat-error id="respondee-val" class="hidden" *ngIf="myControlEmployee.errors?.requireMatch">
                             Selection must correspond to an available option.
-                        </mat-error>    
+                        </mat-error>
+                           
                         <h5> *Please attempt to search either the last or first name</h5>
                         
                         <input type="text" 
@@ -162,7 +164,6 @@
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
-                        <div class="chkboxDisabled">Checkbox is temporarily disabled.</div>
                     </mat-card>
                 </mat-card>
 
@@ -200,7 +201,6 @@
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
-                        <div class="chkboxDisabled">Checkbox is temporarily disabled.</div>
                     </mat-card>
                 </mat-card>
 
@@ -238,7 +238,6 @@
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
-                        <div class="chkboxDisabled">Checkbox is temporarily disabled.</div>
                     </mat-card>
                 </mat-card>
 
@@ -303,7 +302,13 @@
                 </mat-card>
 
                 <mat-card class="crdInputGroup">
-                    <mat-card class="noOutline2">
+                    <button type="button" (click)="switchView()" class="switchViewIcon" matTooltip="Click this icon to toggle between an experimental view of the Call Duration input.">
+                        <mat-icon aria-hidden="false" aria-label="refresh-icon">
+                            refresh
+                        </mat-icon>    
+                    </button>
+                    
+                    <mat-card class="noOutline2" *ngIf="!testView" style="width: 50%;">
                         <mat-label> Call Duration:</mat-label>
                         <ngx-duration-picker [(value)]="myDuration"
                             [options]="{zeroValue: '00:00:00', showYears: false, showMonths: 
@@ -313,6 +318,46 @@
                             name="callduration" class=""
                             [(ngModel)]="Defaults.callduration" >
                         </ngx-duration-picker>
+                    </mat-card>
+
+                    <mat-card class="noOutline halfCard" *ngIf="testView">
+                        <mat-label>Call Duration:</mat-label>
+                        <span class="hint-text">
+                            *This is not functional - display only*    
+                        </span>
+                        <mat-select class="label-buffer call-duration"
+                                    placeholder="Select the duration of the call">
+                            <mat-option *ngFor="let option of callDurations; let i = index"
+                                        [value]="option.id"
+                                        class="mat-options">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-card>
+
+                    <mat-card class="noOutline halfCard">
+                        <div id="metaRatingContainer">
+                            <div>
+                                <mat-label>Rating: </mat-label>
+                                <!-- the icon is pushing the input down so that it's not aligned with the call duration -->
+                                <mat-icon matTooltip="On a scale of 1-5, how valuable was the experience of getting feedback from this respondee. Would you contact them again?" 
+                                            matTooltipPosition="above"
+                                            aria-hidden="false" 
+                                            aria-label="help-icon"
+                                            class="refresh-icon">
+                                    help
+                                </mat-icon>    
+                            </div>
+                            
+                            <input matInput
+                                    class="metaRating label-buffer"
+                                    (keyup)="metaRatingInputValidator($event)"
+                                    id="metaRatingInput"
+                                    type="number" 
+                                    placeholder="1-5" 
+                                    [(ngModel)]="Defaults.meta_rating"
+                                    [formControl]="myControlMetaRating">
+                        </div>
                     </mat-card>
 
                 </mat-card>

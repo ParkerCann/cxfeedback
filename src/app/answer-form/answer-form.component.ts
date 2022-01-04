@@ -54,15 +54,16 @@ export class AnswerFormComponent implements OnInit {
   Defaults : Defaults;
 
   updateValues : updateValues = {
-    respondeeid: 0,
-    productid: 0,
-    feedbacktypeid: 0,
+    respondeeid: null,
+    productid: null,
+    feedbacktypeid: null,
     datecompleted: "",
-    conductor_id: 0,
+    conductor_id: null,
     callduration: "",
-    respondeeTypeId: 0,
+    respondeeTypeId: null,
     datesubmitted: "",
-    feedbackid: ""
+    feedbackid: "",
+    meta_rating: null
   }
 
   successfulSubmit: boolean = false;
@@ -75,7 +76,7 @@ export class AnswerFormComponent implements OnInit {
               private router: Router) { 
                 this.router.events.subscribe((ev) => {
                   if (ev instanceof NavigationEnd) { 
-                    console.log("router changed");
+                    window.scroll(0,0);
                     this.getData();
                     this.child.getData();
                   }
@@ -161,6 +162,7 @@ export class AnswerFormComponent implements OnInit {
       }
 
       this.successfulSubmit = true;
+      window.scroll(0,0);
 
     }
     //Check for errors
@@ -203,6 +205,9 @@ export class AnswerFormComponent implements OnInit {
 
     //look into ngModel for this instead of touching the DOM
     if(mapped[0].value == null){
+      this.respondeeText = "None";
+    }
+    else if(mapped[0].value == 0){
       this.respondeeText = "None";
     }
     else if(mapped[0].value != null){
@@ -294,7 +299,12 @@ export class AnswerFormComponent implements OnInit {
 
       this.updateValues.feedbackid = trueData[0].value;
       this.feedbackIDText = trueData[0].value;
-      this.respondeeText = trueData[1].value;
+      if(trueData[1].value == null){
+        this.respondeeText = "None"
+      }
+      else{
+        this.respondeeText = trueData[1].value;  
+      }
       this.userNameText = trueData[3].value;
       this.dateCompletedText = formatDate(trueData[2].value, 'MM/dd/YYYY', 'en-US');
       this.respondeeTypeText = trueData[6].value;
@@ -347,4 +357,6 @@ export class AnswerFormComponent implements OnInit {
   hideSuccess(){
     this.successfulSubmit = false;
   }
+
+  
 }

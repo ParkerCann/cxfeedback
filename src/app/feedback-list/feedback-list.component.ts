@@ -49,7 +49,6 @@ export class FeedbackListComponent implements OnInit {
   'Product', 
   'Respondee Type', 
   'Respondee', 
-  'Call Duration', 
   'Date Submitted'];
 
   columnsToDisplay: string[] = ['feedbackid', 
@@ -58,8 +57,7 @@ export class FeedbackListComponent implements OnInit {
   'feedback_name', 
   'product_name', 
   'respondee_type', 
-  'RespondeeName', 
-  'callduration', 
+  'RespondeeName',
   'datesubmitted'];
 
   displayedColumnsKeys: string[];
@@ -93,16 +91,12 @@ export class FeedbackListComponent implements OnInit {
       header: 'Respondee'
     },
     {
-      key: 'callduration',
-      header: 'Call Duration'
-    },
-    {
       key: 'datesubmitted',
       header: 'Date Submitted'
     }
   ];
 
-  expandedFeedback: null;
+  expandedFeedback: answerValDetails | null;
 
   filters : filters = {
     completedBy: "",
@@ -262,8 +256,7 @@ export class FeedbackListComponent implements OnInit {
       console.log(this.subFeedbackList[0]);
 
       if(this.subFeedbackList[0] == undefined){
-        this.subFeedbackList.push( "There are no entries for the selected filter values.");
-        console.log("No entries available");
+        this.noResults = true;
       }
     }
 
@@ -290,6 +283,10 @@ export class FeedbackListComponent implements OnInit {
       var sortArray = displayArray.sort((a,b) => b.feedbackid - a.feedbackid);
 
       this.subFeedbackList = sortArray;
+
+      if(this.subFeedbackList[0] == undefined){
+        this.noResults = true;
+      }
     }
 
     else if(this.origFilt.selectedVal == this.typeOfFilter[2]){
@@ -316,6 +313,10 @@ export class FeedbackListComponent implements OnInit {
       var sortArray = displayArray.sort((a,b) => b.feedbackid - a.feedbackid);
 
       this.subFeedbackList = sortArray;
+
+      if(this.subFeedbackList[0] == undefined){
+        this.noResults = true;
+      }
     }
 
     else if(this.origFilt.selectedVal == this.typeOfFilter[3]){
@@ -341,6 +342,10 @@ export class FeedbackListComponent implements OnInit {
       var sortArray = displayArray.sort((a,b) => b.feedbackid - a.feedbackid);
 
       this.subFeedbackList = sortArray;
+
+      if(this.subFeedbackList[0] == undefined){
+        this.noResults = true;
+      }
     }
     else if(this.origFilt.selectedVal == this.typeOfFilter[4]){
       this.subFeedbackList = [];
@@ -365,6 +370,10 @@ export class FeedbackListComponent implements OnInit {
       var sortArray = displayArray.sort((a,b) => b.feedbackid - a.feedbackid);
 
       this.subFeedbackList = sortArray;
+
+      if(this.subFeedbackList[0] == undefined){
+        this.noResults = true; 
+      }
     }
   }
 
@@ -393,6 +402,7 @@ export class FeedbackListComponent implements OnInit {
   myControlDate = new FormControl();
   myControlFeedType = new FormControl();
   myControlRespType = new FormControl();
+  noResults: boolean = false;
 
 
   viewAnswers(feedbackid: number){
@@ -416,11 +426,53 @@ export class FeedbackListComponent implements OnInit {
     }
     else if(feedbackid == null){
       console.log("Feedbackid is null");
+    } 
+  }
+
+  viewAllAnswers(){
+    const answerList = [];
+
+    for (let index = 0; index < this.FeedbackList.length; index++) {
+      const element = this.FeedbackList[index];
+      this.service.getFilteredAnswerList(element).subscribe(
+        result => this.retrievedAnswers.push(result),
+        error => console.log(error)
+      );
     }
-    
+    console.log(this.retrievedAnswers);
+
+    //make it so that [i] of this.retrievedAnswers = column[i]'s collapsed values
   }
 
   test(){
-    console.log(this.retrievedAnswers);
+    //this.viewAllAnswers();
+    console.log(document.getElementsByClassName('ng-trigger-detailExpand'));
+  }
+
+  allRowsExpanded: boolean = false;
+
+  public toggle() {
+    this.allRowsExpanded = !this.allRowsExpanded;
+    this.expandedFeedback = null;
+  }
+
+  //function will group all feedback by their ids (idk why I did this. I needed Answers and I already did that above)
+  groupFeedback(){
+    var groupBy = function(xs, key) {
+      return xs.reduce(function(rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+      }, {});
+    };
+
+    var groupedList = (groupBy(this.FeedbackList, 'feedbackid'));
+
+    var groupedListKeys = (Object.keys(groupedList));
+
+    for (let index = 0; index < groupedListKeys.length; index++) {
+      const element = groupedListKeys[index];
+      const ele = groupedList[element];
+      console.log(ele);
+    }
   }
 }
