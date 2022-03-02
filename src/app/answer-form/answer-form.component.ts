@@ -1,20 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver, Input } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, ValidationErrors, Validators } from '@angular/forms';
-import { DataService } from '../data/data.service';
+import { NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { answerFormVals } from '../data/answerFormValues';
 import {FormControl} from '@angular/forms';
-import { Time, formatDate, NumberSymbol } from '@angular/common';
+import { formatDate} from '@angular/common';
 import * as moment from 'moment';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import {ChangeDetectorRef } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { Defaults } from '../data/defaults';
 import { Router, NavigationEnd } from '@angular/router';
-import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import { ResponseInputComponent } from './response-input/response-input.component';
 import { updateValues } from '../user-settings-form/user-settings-form.component';
+import { ImportPageComponent } from '../import-page/import-page.component';
 
 export interface feedbackid {
   feedbackid: number
@@ -40,7 +38,7 @@ export class AnswerFormComponent implements OnInit {
   
   answerFormValues : answerFormVals = {
     feedbackid: 0,
-    questionid: 0,
+    questionname: "",
     review: "",
     rating: null
   };
@@ -65,6 +63,8 @@ export class AnswerFormComponent implements OnInit {
     feedbackid: "",
     meta_rating: null
   }
+
+  showCont: boolean = true;
 
   successfulSubmit: boolean = false;
 
@@ -133,11 +133,15 @@ export class AnswerFormComponent implements OnInit {
     this.postErrorMessage = errorResponse.error.errorMessage;
   }
 
+  isError: boolean = false;
+  showfeedbackidError: boolean = false;
+  showQuestionnameError: boolean = false;
+  showresponseError: boolean = false;
+
   onSubmit(form: NgForm){
     if (form.valid) {
 
       const feedbackid = Number(localStorage.getItem('currentFeedbackID'));
-      console.log(feedbackid);
 
       if(this.myControl.value.feedbackid == undefined){
         this.answerFormValues.feedbackid = feedbackid;
@@ -150,20 +154,37 @@ export class AnswerFormComponent implements OnInit {
 
       for (let index = 0; index < this.totalQuestions.length; index++) {
         const element = this.totalQuestions[index];
-        this.answerFormValues.questionid = element.questionid;
+        this.answerFormValues.questionname = element.questionname;
         this.answerFormValues.review = element.response;
         this.answerFormValues.rating = element.rating;
         console.log(this.answerFormValues);
 
-        this.service.addAnswer(this.answerFormValues).subscribe(
-          result => this.answerIDText = (result.toString() + " "),
-          error => this.onHttpError(error)
-        );
+        if(this.answerFormValues.feedbackid == 0){
+          this.isError = true;
+          this.showfeedbackidError = true;
+        }
+        else if(this.answerFormValues.questionname == ""){
+          this.isError = true;
+          this.showQuestionnameError = true;
+        }
+        else if(this.answerFormValues.review == "" && this.answerFormValues.rating == 0){
+          this.isError = true;
+          this.showresponseError = true;
+        }
+        else{
+          this.service.addcxfeebackAnswer(this.answerFormValues).subscribe(
+            result => this.answerIDText = (result.toString() + " "),
+            error => this.onHttpError(error)
+          );
+
+          this.successfulSubmit = true;
+        }
+
+        
       }
 
-      this.successfulSubmit = true;
       window.scroll(0,0);
-
+      this.totalQuestions = [];
     }
     //Check for errors
     else {
@@ -174,23 +195,11 @@ export class AnswerFormComponent implements OnInit {
 
   testArray = <any>[];
 
-  test2(){
-    console.log(this.productText);
-  }
-
   click(){
     var container = document.getElementById("question-list");
     var create = document.createElement('app-response-input');
 
     container.insertAdjacentElement('beforeend', create);
-  }
-
-  test(){
-    const storedData = localStorage.getItem('myData');
-    const parsedData = JSON.parse(storedData);
-    const mapped = Object.keys(parsedData).map(key => ({type: key, value: parsedData[key]}));
-
-    console.log(mapped);
   }
 
   getData() {
@@ -336,7 +345,6 @@ export class AnswerFormComponent implements OnInit {
     if (countComponents.length !== 1){
       countComponents.item(countComponents.length-1).remove();
       this.components.pop();
-      console.log(this.components);
     }
   }
 
@@ -347,10 +355,9 @@ export class AnswerFormComponent implements OnInit {
   checkValues(){
     for (let index = 0; index < this.components.length; index++) {
       const element = this.components[index];
-      const questionid = Object.keys(element.instance.responseInput).map(key => ({type: key, value: element.instance.responseInput.questionid[key]}))
-      element.instance.responseInput.questionid = questionid[0]?.value;
-      console.log(element.instance.responseInput);
-      this.totalQuestions.push(element.instance.responseInput);
+      //const questionid = Object.keys(element.instance.responseInput).map(key => ({type: key, value: element.instance.responseInput.questionid[key]}))
+      //element.instance.responseInput.questionid = questionid[0]?.value;
+      this.totalQuestions.push(element.instance.newQuestion);
     }
   }
 
@@ -358,5 +365,21 @@ export class AnswerFormComponent implements OnInit {
     this.successfulSubmit = false;
   }
 
+  test(val){
+    console.log(val)
+  }
+
+  @ViewChild(ImportPageComponent) importPage;
   
+
+  addMultiQuestions(val){
+    document.querySelectorAll('#responseInputForm').item(document.querySelectorAll('#responseInputForm').length-1).remove();
+    this.components.pop()
+
+    for (let index = 0; index < val; index++) {
+      this.addComponent(this.responseInputComponentClass);
+      this.components[index].instance.newQuestion.questionname = this.importPage.keys[this.importPage.data.length - 1 - index];
+      this.components[index].instance.newQuestion.response = this.importPage.data[this.importPage.data.length - 1 - index];
+    }
+  }
 }

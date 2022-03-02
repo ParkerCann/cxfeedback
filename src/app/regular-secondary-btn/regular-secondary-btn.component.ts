@@ -8,10 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RegularSecondaryBtnComponent implements OnInit {
 
   @Input() buttontext;
+  @Input() buttontype;
+
 
   constructor() { }
 
   ngOnInit(): void {
+    this.buttontype = "button";
   }
 
 }

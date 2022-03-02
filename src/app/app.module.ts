@@ -35,6 +35,8 @@ import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTableModule} from '@angular/material/table';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { ImportPageComponent } from './import-page/import-page.component';
+import {NgxCsvParserModule } from 'ngx-csv-parser'
 
 
 //import {enableProdMode} from '@angular/core';
@@ -55,7 +57,8 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     CurrentDateTimeComponent,
     ResponseInputComponent,
     FeedbackListComponent,
-    DestructiveButtonComponent
+    DestructiveButtonComponent,
+    ImportPageComponent
       ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     MatIconModule,
     MatStepperModule,
     MatTooltipModule,
-    MatTableModule
+    MatTableModule,
+    NgxCsvParserModule
     ],
   providers: [SharedService, 
     {provide: LocationStrategy, useClass: HashLocationStrategy}

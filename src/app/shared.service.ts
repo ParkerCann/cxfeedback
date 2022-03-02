@@ -90,6 +90,10 @@ export class SharedService {
     return this.http.post(this.APIUrl+'/answer', val)
   }
 
+  addcxfeebackAnswer(val:any){
+    return this.http.post(this.APIUrl+'/cxfeedbackanswers', val);
+  }
+
   updateFeedback(val:any){
     return this.http.put(this.APIUrl+'/feedback', val)
   }

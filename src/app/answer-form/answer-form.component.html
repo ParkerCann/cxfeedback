@@ -3,7 +3,7 @@
         <div id="successConfirm" class="successConfirm" *ngIf="successfulSubmit">
             <span id="closeBtnContainer">
                 <button (click)="hideSuccess()" id="close-icon">
-                    <mat-icon  aria-hidden="false" aria-label="close-icon">close</mat-icon>
+                    <mat-icon aria-hidden="false" aria-label="close-icon">close</mat-icon>
                 </button>
             </span>
             
@@ -12,8 +12,33 @@
                 <span id="returnedFeedbackID" [innerHTML]="answerIDText"></span>  
             </div>
         </div>
+        <div class="error" style="position: relative;" *ngIf="showfeedbackidError == true">
+            <button style="position: absolute; top: 4px; right: 4px;">
+                <mat-icon aria-hidden="false" aria-label="close-icon" (click)="showfeedbackidError = false">close</mat-icon>
+            </button>
+            Please select a Feedback ID to submit.
+        </div>
+        <div class="error" style="position: relative;" *ngIf="showQuestionnameError == true">
+            <button style="position: absolute; top: 4px; right: 4px;">
+                <mat-icon aria-hidden="false" aria-label="close-icon" (click)="showQuestionnameError = false">close</mat-icon>
+            </button>
+            Please input a Question to submit.
+        </div>
+        <div class="error" style="position: relative;" *ngIf="showresponseError == true">
+            <button style="position: absolute; top: 4px; right: 4px;">
+                <mat-icon aria-hidden="false" aria-label="close-icon" (click)="showresponseError = false">close</mat-icon>
+            </button>
+            Please input a Response or Rating to submit.
+        </div>
         <h1 id="PageTitle">Answer Form</h1>
 
+        <mat-card>
+            <app-import-page [addComponent]="addComponent"></app-import-page>
+        </mat-card>
+
+        <div *ngIf="showCont">
+            <app-regular-secondary-btn (click)="addMultiQuestions(importPage.numQuestions)" buttontext="Auto-Fill"></app-regular-secondary-btn>
+        </div>
 
         <form #form="ngForm" (ngSubmit)="onSubmit(form)">
             <!-- card to select and display the information of the feedback type the user chose -->
@@ -33,7 +58,7 @@
                                         (optionSelected)="updateDisplayInfo(feedbackid.feedbackid)">
                         <mat-option *ngFor="let feedback of subFeedbackList" 
                                     [value]="feedback">
-                            {{feedback.feedbackid}}
+                            {{feedback.feedbackid}} : {{feedback.datecompleted}}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-card>
@@ -90,3 +115,4 @@
 
     </div>
 </body>
+   

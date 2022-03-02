@@ -4,6 +4,7 @@ import { NavigationEnd, NavigationStart, Router, RouterModule, Routes } from '@a
 import { UserSettingsFormComponent } from './user-settings-form/user-settings-form.component';
 import { AnswerFormComponent } from './answer-form/answer-form.component';
 import { FeedbackListComponent } from 'src/app/feedback-list/feedback-list.component';
+import { ImportPageComponent } from './import-page/import-page.component';
 
 
 const routes: Routes = [

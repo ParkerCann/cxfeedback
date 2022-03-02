@@ -14,6 +14,12 @@ interface responseInput {
   rating: number
 }
 
+interface newQuestion {
+  questionname: string,
+  response: string, 
+  rating: number
+}
+
 @Component({
   selector: 'app-response-input',
   templateUrl: './response-input.component.html',
@@ -27,6 +33,12 @@ export class ResponseInputComponent implements OnInit {
 
   responseInput : responseInput = {
     questionid: null,
+    response: "",
+    rating: null
+  }
+
+  newQuestion : newQuestion = {
+    questionname: "",
     response: "",
     rating: null
   }
@@ -141,8 +153,16 @@ export class ResponseInputComponent implements OnInit {
     console.log(_filter);
 
     var groupedList = (groupBy(this.QuestionList, 'question_source'));
-    console.log(groupedList._filter);
+    var arrayList = (Object.keys(groupedList));
+    const filterVal = _filter.toString();
+    //console.log(groupedList._filter);
     console.log(groupedList.Miscellaneous);
+  }
+
+  writeOwnQuestion: boolean = false;
+  
+  test(){
+    console.log(this.newQuestion);
   }
 
 }

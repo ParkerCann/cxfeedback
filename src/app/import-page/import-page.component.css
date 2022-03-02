@@ -1,0 +1,42 @@
+.label{
+    color: black;
+    border-radius: 4px;
+    cursor:pointer;
+    width: 100%;
+}
+
+.input{
+    display: none;
+}
+
+.filename{
+    color: black;
+    font-size: small;
+}
+
+.border{
+    width: 100%;
+}
+
+.content{
+    padding:8px;
+}
+
+.uploadcontainer{
+    width: 20%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: rgb(231, 231, 231);
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: auto;
+    text-align: center;
+}
+
+.uploadcontainer:hover{
+    background-color: rgb(255, 247, 238);
+}
+
+.uploadcontainer:active{
+    background-color: rgb(226, 226, 226);
+}

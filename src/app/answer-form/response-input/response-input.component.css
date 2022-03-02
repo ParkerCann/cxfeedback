@@ -116,3 +116,21 @@ input[type=number]::-webkit-outer-spin-button {
 .form-select{
     width: 95%;
 }
+
+.hinttext{
+    padding: 4px;
+    font-family: Roboto;
+    font-size: 8pt;
+    line-height: 8pt;
+    color: #0093d0;
+}
+
+.questionInput{
+    width: 100%;
+    height: 100%;
+    background: #f3f3f3;
+    border: 1px solid #c3c3c3;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 16pt;
+}

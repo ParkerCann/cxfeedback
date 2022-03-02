@@ -47,17 +47,13 @@
                 Filter
             </button>
 
-            <button class="floating-button" (click)="toggle()">
+            <button disabled class="floating-button" (click)="toggle()" style="pointer-events: none; color: grey;">
                 {{allRowsExpanded ? 'Collapse All' : 'Expand All'}}
             </button>
 
 
             <button (click)="clearFilters()" id="clear-button">
                 Clear Filters
-            </button>
-
-            <button (click)="viewAllAnswers()">
-                test
             </button>
 
             <table mat-table 

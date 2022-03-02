@@ -1,0 +1,35 @@
+<div class="border">
+    <div class="content">
+        <div>
+            <h2>Import:</h2>
+        </div>
+        <table>
+            <tr style="height: 24px; font-size: 12pt;">
+                <td> <mat-label>Select the number of questions:</mat-label></td>
+                <td> <input style="background-color: rgb(236, 236, 236); padding: 4px;" matInput type="number" placeholder="1-20" min="1" max="20" [(ngModel)]="numQuestions" required> </td>
+            </tr>
+        </table>
+        <div class="uploadcontainer" (dragover)="onDragOver($event)" (drop)="onDropSuccess($event)">
+            <label class="label">
+                <input (change)="onChange($event)" type="file" accept=".csv" multiple="false" class="input"/>
+                Add Attachment...
+                <div class="filename">Selected File: {{filename || "None"}}</div>
+            </label>
+        </div>
+        <br>
+        <app-regular-secondary-btn buttontext="Import" type="button" (click)="fileChangeListener(file)"></app-regular-secondary-btn>
+        <br>
+        <table>
+            <th *ngFor="let key of keys; let i = index">
+                <ul>{{keys[i]}}</ul>
+            </th>
+            <tr *ngFor="let record of csvRecords; let x = index">
+                <td *ngFor="let datum of data; let i = index">
+                    <ul>{{data[i]}}</ul>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+    
+</div>

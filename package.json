@@ -32,6 +32,7 @@
     "ajv-keywords": "^5.0.0",
     "angular-virtual-select": "^1.1.2",
     "moment": "^2.29.1",
+    "ngx-csv-parser": "0.0.7",
     "ngx-duration-picker": "^3.3.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

@@ -1,5 +1,6 @@
 <!-- card for entering the information into the database -->
 <form #form="ngForm" id="responseInputForm">
+
         <mat-card class="questionAutoComplete noBorder">
             <div class="smlbuffer">  </div>
             <mat-label for="question">
@@ -18,16 +19,18 @@
                     required>
             <mat-autocomplete #autoQuestionSource="matAutocomplete"
             (optionSelected)="groupFilter(this.myControlQuestionSource.value)">
-                    <mat-option *ngFor="let question of subQuestionList"
+                    <mat-option *ngFor="let question of subQuestionList" disabled
                                 [value]="question">
                                 {{question || 'Loading...'}}
                     </mat-option>
             </mat-autocomplete>
+            
             <div class="buffer">  </div>
 
-            <input type="text"
+            <input  *ngIf="writeOwnQuestion == false"
+                    type="text"
                     name="question"
-                    [(ngModel)]="responseInput.questionid"
+                    [(ngModel)]="newQuestion.questionname"
                     class="form-select label-buffer"
                     placeholder="Select a question"
                     aria-label="question"
@@ -36,13 +39,21 @@
                     id="autoQuestion"
                     (keyup)="QuestionInputFn($event)"
                     required>
-            <mat-autocomplete #autoQuestion="matAutocomplete" 
-                                [displayWith]="displayQuestionName">
+            <mat-autocomplete #autoQuestion="matAutocomplete">
                     <mat-option *ngFor="let question of QuestionList"
-                                [value]="question">
+                                [value]="question.question_name">
                                 {{question.question_name || 'Loading...'}}
                     </mat-option>
-            </mat-autocomplete>  
+            </mat-autocomplete>
+
+            <mat-form-field *ngIf="writeOwnQuestion == true" class="questionInput">
+                    <mat-label>Write your own question</mat-label>
+                    <input name="createdQuestion" [(ngModel)]="newQuestion.questionname" matInput >
+            </mat-form-field>
+
+            <button *ngIf="writeOwnQuestion == false" type="button" class="hinttext" (click)="writeOwnQuestion = !writeOwnQuestion">Write my own question</button>
+            <button *ngIf="writeOwnQuestion == true" type="button" class="hinttext" (click)="writeOwnQuestion = !writeOwnQuestion">Choose a pre-written question</button>
+
             <div class="buffer">  </div>
             <mat-form-field class="example-full-width response" appearance="fill" hintLabel="">
                 <mat-label>Response</mat-label>
@@ -50,7 +61,7 @@
                         #matInput 
                         placeholder="" 
                         maxlength="300" 
-                        [(ngModel)]="responseInput.response"
+                        [(ngModel)]="newQuestion.response"
                         [formControl]="myControlResponse"></textarea>
                 <span class="charCounter"> {{ matInput.value.length }} / 300 </span>
             </mat-form-field>
@@ -65,14 +76,10 @@
                         id="responseInput"
                         type="number" 
                         placeholder="1-5" 
-                        [(ngModel)]="responseInput.rating"
+                        [(ngModel)]="newQuestion.rating"
                         [formControl]="myControlRating">
             </div>
         </mat-card>
 </form>
-
-<button type="button" (click)="groupFilter(this.myControlQuestionSource.value)">
-    test
-</button>
 
 

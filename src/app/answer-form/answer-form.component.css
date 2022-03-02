@@ -45,3 +45,12 @@
   display: none;
 }
 
+.error{
+  width: 50%;
+  margin: auto;
+  background: red;
+  font: large;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+}

@@ -1,6 +1,6 @@
 export interface answerFormVals {
     feedbackid: number,
-    questionid: number,
+    questionname: string,
     review: string,
     rating: number
 }

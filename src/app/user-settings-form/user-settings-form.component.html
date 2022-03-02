@@ -1,4 +1,3 @@
-
 <body>
     <div id="successConfirm" class="successConfirm" *ngIf="displaySubmitSucess">
         <span id="closeBtnContainer">
@@ -23,6 +22,7 @@
             <span id="successUpdateSpan"> Information was updated successfully. </span>
         </div>
     </div>
+
     <mat-stepper labelPosition="bottom" #stepper>
         <mat-step orientation="horizontal" [editable]="true">
         <ng-template matStepLabel> Feedback Form </ng-template>
@@ -35,7 +35,6 @@
 
             <form #form="ngForm" (ngSubmit)="onSubmit(form)">
                 <input type="datetime" name="datesubmitted" [(ngModel)]="Defaults.datesubmitted" disabled class="hidden">
-
 
                 <mat-card class="crdInputGroup">
                     <mat-card id="crdUsername" class="halfCard">
@@ -76,7 +75,7 @@
                             Please choose a vaild date.
                         </span>
                         <mat-form-field appearance="fill" id="datepicker">
-                            <mat-label>Date Completed: </mat-label>
+                            <mat-label style="font-size: medium;"> Original Date Completed: </mat-label>
                             <input matInput style="padding-top: 8px;"
                                         id="datepicker" name="datepicker" 
                                         [matDatepicker]="picker1" 
@@ -160,8 +159,7 @@
                                 </mat-option>
                         </mat-autocomplete>
 
-                        <mat-checkbox [(ngModel)]="checked" id="chkbox" (change)="onChangeEmp($event)"
-                        name="chkbox">
+                        <mat-checkbox [disabled]="true" [(ngModel)]="checked" id="chkbox" (change)="onChangeEmp($event)" name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
                     </mat-card>
@@ -197,7 +195,7 @@
                                 </mat-option>
                         </mat-autocomplete>
 
-                        <mat-checkbox [(ngModel)]="checked" id="chkbox" (change)="onChangeCust($event)"
+                        <mat-checkbox [disabled]="true" [(ngModel)]="checked" id="chkbox" (change)="onChangeCust($event)"
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>
@@ -234,7 +232,7 @@
                                 </mat-option>
                         </mat-autocomplete>
 
-                        <mat-checkbox [(ngModel)]="checked" id="chkbox" (change)="onChangeCarrier($event)"
+                        <mat-checkbox [disabled]="true" [(ngModel)]="checked" id="chkbox" (change)="onChangeCarrier($event)"
                         name="chkbox">
                             Check here if there is no respondee.
                         </mat-checkbox>

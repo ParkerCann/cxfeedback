@@ -153,8 +153,7 @@ export class UserSettingsFormComponent implements OnInit {
   form: any;
 
   constructor(private service: SharedService) { 
-                
-              }
+             }
 
   ProductList:any=[];
   subProductList: any[] = this.ProductList;
@@ -298,7 +297,7 @@ export class UserSettingsFormComponent implements OnInit {
   private requireFeedbackTypeMatch(control: FormControl): ValidationErrors | null {
     const selection: any = control.value;
     if (this.FeedbackTypeList && this.FeedbackTypeList.indexOf(selection) < 0) {
-      console.log("error");
+      //console.log("error");
       return { requireMatch: true };
     }
     return null;
