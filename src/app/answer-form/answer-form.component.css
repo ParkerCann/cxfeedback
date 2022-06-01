@@ -48,9 +48,22 @@
 .error{
   width: 50%;
   margin: auto;
-  background: red;
+  background: rgb(255, 56, 56);
   font: large;
   text-align: center;
   padding: 8px;
   border-radius: 4px;
+}
+
+.resetBtn{
+  float: right;
+  color: #0093d0;
+}
+
+.resetBtn:hover{
+  color: #2CADE3;
+}
+
+.resetBtn:active{
+  color: #006EA9;
 }

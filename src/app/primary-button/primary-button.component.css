@@ -22,6 +22,8 @@
 
 #button:disabled {
     background-color: #E4E4E4;
+    pointer-events: none;
+    cursor: pointer;
 }
 
 #button_text {

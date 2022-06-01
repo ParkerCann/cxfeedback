@@ -1,0 +1,66 @@
+<script>
+    dataLayer.push({
+        'event': 'virtualPageView',
+        'buttonName': 'SurveyMonkey Upload'
+    })
+  </script>
+<table class="btnTable">
+    <tr class="btnRows">
+        <td class="lftColumn">
+            <app-primary-button (click)="getSurveyIds()" buttontext="Get SurveyMonkey Data"></app-primary-button></td>
+        <td class="rghColumn">    
+            <app-primary-button *ngIf="uploadStatus != 'Ready'" buttontext="Upload New Data" status=false style="float: right;"> </app-primary-button>
+            <app-primary-button *ngIf="uploadStatus == 'Ready'" (click)="compositeUploadFunction()" buttontext="Upload New Data" style="float: right;"> </app-primary-button>
+        </td>
+    </tr>
+    <tr class="txtRows">
+        <td class="lftColumn">
+            Retrieval Status: {{status || 'Error'}}
+        </td>
+        <td class="rghColumn">
+            Upload Status: {{ uploadStatus || 'Error'}}
+        </td>
+    </tr>
+</table>
+
+<span *ngIf="toggleSpinner" class="spinner-wrapper">
+    <div class="spinner-container">
+        <mat-spinner></mat-spinner>    
+    </div>
+    
+</span>
+
+<table *ngIf="tblVisibility" class="dataTable border">
+    <tr class="border">
+        <td class="header border">
+            Response ID
+        </td>
+        <td class="header border">
+            Question
+        </td>
+        <td class="header border">
+            Answer
+        </td>
+        <td class="header border">
+            Date
+        </td>
+    </tr>
+    <tr *ngFor="let answer of responseObjArray" class="border">
+        <td class="border">
+            {{answer.responseId}}
+        </td>
+        <td class="border">
+            {{answer.question_text}}
+        </td>
+        <td class="border">
+            {{answer.answer_text}}
+        </td>
+        <td class="border">
+            {{answer.date | date: 'MM-dd-yyyy'}}
+        </td>
+    </tr>
+</table>
+
+<span>
+    <button (click)="attemptOnAsync()">test</button>
+</span>

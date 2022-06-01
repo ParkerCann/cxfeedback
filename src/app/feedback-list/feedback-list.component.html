@@ -1,3 +1,9 @@
+<script>
+    window.dataLayer.push({
+            'event': 'virtualPageView',
+            'buttonName': 'Feedback List'
+        })
+    </script>
 <body>
     <div class="container">
         <mat-card>
@@ -113,13 +119,13 @@
                                     </tr>
                                     <tr *ngFor="let answer of retrievedAnswers" class="answer-text" id="answerRowForId{{feedback.feedbackid}}">
                                         <td class="answerWidth">
-                                            {{answer.question_name}}
+                                            {{answer.questionname || "None"}}
                                         </td>
                                         <td class="answerWidth">
-                                            {{answer.review}}
+                                            {{answer.review || ""}}
                                         </td>
                                         <td class="answerWidth">
-                                            {{answer.rating}}
+                                            {{answer.rating || ""}}
                                         </td>
                                 </div>
                             </div>
@@ -138,6 +144,6 @@
 
             <div *ngIf="noResults" style="margin: auto; text-align: center; padding: 8px;"> No Entries Available </div>
         </mat-card>
-    </div>    
+    </div>
 </body>
 

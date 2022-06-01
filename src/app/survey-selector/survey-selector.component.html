@@ -1,0 +1,9 @@
+Available Surveys:
+<br>
+<mat-radio-group>
+    <mat-radio-button *ngFor="let id of data" [value]="id" [mat-dialog-close]="id">
+        <div>
+            {{id}}
+        </div> 
+    </mat-radio-button>
+</mat-radio-group>

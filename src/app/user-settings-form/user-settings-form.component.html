@@ -1,5 +1,11 @@
+<script>
+    window.dataLayer.push({
+            'event': 'virtualPageView',
+            'buttonName': 'Feedback Page'
+        })
+    </script>
 <body>
-    <div id="successConfirm" class="successConfirm" *ngIf="displaySubmitSucess">
+   <div id="successConfirm" class="successConfirm" *ngIf="displaySubmitSucess">
         <span id="closeBtnContainer">
             <button (click)="hideSuccess()" id="close-icon">
                 <mat-icon aria-hidden="false" aria-label="close-icon">close</mat-icon>

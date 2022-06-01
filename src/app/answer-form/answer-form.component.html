@@ -1,3 +1,9 @@
+<script>
+    window.dataLayer.push({
+            'event': 'virtualPageView',
+            'buttonName': 'Answer Form'
+        })
+    </script>
 <body>
     <div class="container">
         <div id="successConfirm" class="successConfirm" *ngIf="successfulSubmit">
@@ -36,8 +42,12 @@
             <app-import-page [addComponent]="addComponent"></app-import-page>
         </mat-card>
 
+        <div *ngIf="nullQuestionError" class="error">
+            Please input the number of questions above.
+        </div>
+
         <div *ngIf="showCont">
-            <app-regular-secondary-btn (click)="addMultiQuestions(importPage.numQuestions)" buttontext="Auto-Fill"></app-regular-secondary-btn>
+            <app-regular-secondary-btn (click)="addMultiQuestions(importPage.numQuestions, importPage.selectedData)" buttontext="Auto-Fill"></app-regular-secondary-btn>
         </div>
 
         <form #form="ngForm" (ngSubmit)="onSubmit(form)">
@@ -98,6 +108,11 @@
                             <td class="rowData" id="rowCallDuration" [innerHTML]="callDurationText"></td>
                         </tr>
                     </table>
+                    <span>
+                        <button type="button" class="resetBtn" (click)="resetQuestions()">
+                            Reset
+                        </button>
+                    </span>
                 </mat-card>
             </mat-card>
                 <ng-template #container>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class SharedService {
 
   readonly APIUrl="http://cxfeedbackservice.tql.com/api";
   //readonly APIUrl="http://localhost:54843/api";
+  readonly surveyMonkeyAPI_URL="https://api.surveymonkey.net/v3";
 
   constructor(private http:HttpClient) { }
 
@@ -98,10 +99,50 @@ export class SharedService {
     return this.http.put(this.APIUrl+'/feedback', val)
   }
 
-  // public getCarrierContactData(CarrierId: number): Observable<CarrierSearchResults[]> {
-  //   return this.http.get<CarrierSearchResults[]>(environment.carrierSearchUrl + CarrierId);
-  //   }
-  
+  //API Calls for SurveyMonkey
+
+  auth_token = 'ALSBHlApBbU8OQHslBMe0csS4BySIGk7phSEJavKg2YyPgIuTl4Ve0UUFZ58xgCFgcXN9gWkDernadw.6G.oWyUm1kEd5iJMUsBta.lM9FY1A9Y-hYynWu4HkLdLhrr3';
+
+  header = new HttpHeaders({
+    'Content-Type': 'Accept: application/json',
+    'Authorization': `Bearer ${this.auth_token}`
+  })
+
+  async getSurveyIds():Promise<Observable<any[]>>{
+    var result = this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys', {headers: this.header}).toPromise();
+    return result;
+  }
+
+  async getResponseIds(survey_id:number):Promise<Observable<any[]>>{
+    var result = this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/responses', {headers: this.header}).toPromise();
+    console.log(result);
+    return result;
+  }
+
+  async getSurveyDetails(survey_id:number):Promise<Observable<any[]>>{
+    return this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/details', {headers: this.header});
+  }
+
+  async getResponseDetails(survey_id:number, response_id:number):Promise<Observable<any[]>>{
+    return this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/responses/' + response_id + '/details', {headers: this.header});
+  }
+
+  postTeamReviewFeedback(val:any){
+    return this.http.post(this.APIUrl+'/teamreviewfeedback', val);
+  }
+
+  postTeamReviewAnswers(val:any){
+    return this.http.post(this.APIUrl+'/teamreviewanswer', val);
+  }
+
+  json_headers={
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })
 }
 
-
+async getSurveyMonkeyIDs():Promise<Observable<any[]>>{
+    return this.http.get<any>(this.APIUrl+'/getsurveymonkeyids', this.json_headers);
+  }
+  
+}

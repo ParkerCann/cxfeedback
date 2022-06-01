@@ -48,8 +48,7 @@ export class FeedbackListComponent implements OnInit {
   'Feedback Type', 
   'Product', 
   'Respondee Type', 
-  'Respondee', 
-  'Date Submitted'];
+  'Respondee'];
 
   columnsToDisplay: string[] = ['feedbackid', 
   'Fullname', 
@@ -57,8 +56,7 @@ export class FeedbackListComponent implements OnInit {
   'feedback_name', 
   'product_name', 
   'respondee_type', 
-  'RespondeeName',
-  'datesubmitted'];
+  'RespondeeName'];
 
   displayedColumnsKeys: string[];
   displayedColumns= [
@@ -89,10 +87,6 @@ export class FeedbackListComponent implements OnInit {
     {
       key: 'RespondeeName',
       header: 'Respondee'
-    },
-    {
-      key: 'datesubmitted',
-      header: 'Date Submitted'
     }
   ];
 

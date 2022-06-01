@@ -1,19 +1,30 @@
-<body id="router" > 
+<body id="router" >
     <div class="container">
         <nav id="navbar" class="navbar">
             <ul class="navbar-nav">
                 <li id="btnFeedbackContainer" class="nav-item">
-                    <app-primary-button buttontext="Feedback Form" 
-                                        routerLink="feedback"></app-primary-button>
+                    <app-primary-button (click)="dataLayerPush_pageName('Feedback Form')"
+                                        buttontext="Feedback Form" 
+                                        routerLink="feedback">
+                                        </app-primary-button>
                 </li>
                 <li id="btnFeedbackListContainer" class="nav-item">
-                    <app-primary-button buttontext="Answer Form" 
+                    <app-primary-button (click)="dataLayerPush_pageName('Answer Form')"
+                                        buttontext="Answer Form" 
                                         routerLink="answer"
-                                        matTooltip="Select this if you only want to input answers"></app-primary-button>
+                                        matTooltip="Select this if you only want to input answers">
+                                        </app-primary-button>
                 </li>
                 <li id="btnFeedbackListContainer" class="nav-item">
-                    <app-primary-button buttontext="Past Feedback" 
-                                        routerLink="feedbacklist"></app-primary-button>
+                    <app-primary-button (click)="dataLayerPush_pageName('Past Feedback')"
+                                        buttontext="Past Feedback" 
+                                        routerLink="feedbacklist">
+                                        </app-primary-button>
+                </li>
+                <li>
+                    <app-primary-button (click)="openDialog(); dataLayerPush_pageName('surveyMonkey Upload')" buttontext="Upload SurveyMonkey Data">
+                        
+                    </app-primary-button>
                 </li>
             </ul>
         </nav>

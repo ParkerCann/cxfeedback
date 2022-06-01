@@ -10,3 +10,8 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+  // Declare gTM dataLayer array.
+declare global {
+  interface Window { dataLayer: any[]; }
+}

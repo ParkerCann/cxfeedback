@@ -34,14 +34,17 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTableModule} from '@angular/material/table';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {LocationStrategy, HashLocationStrategy, CommonModule} from '@angular/common';
 import { ImportPageComponent } from './import-page/import-page.component';
-import {NgxCsvParserModule } from 'ngx-csv-parser'
-
+import {NgxCsvParserModule } from 'ngx-csv-parser';
+import { SurveyMonkeyCallsComponent } from './survey-monkey-calls/survey-monkey-calls.component'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+import { SurveySelectorComponent } from './survey-selector/survey-selector.component';
 
 //import {enableProdMode} from '@angular/core';
 //enableProdMode();
-
 
 @NgModule({
   declarations: [
@@ -58,7 +61,9 @@ import {NgxCsvParserModule } from 'ngx-csv-parser'
     ResponseInputComponent,
     FeedbackListComponent,
     DestructiveButtonComponent,
-    ImportPageComponent
+    ImportPageComponent,
+    SurveyMonkeyCallsComponent,
+    SurveySelectorComponent
       ],
   imports: [
     BrowserModule,
@@ -82,7 +87,10 @@ import {NgxCsvParserModule } from 'ngx-csv-parser'
     MatStepperModule,
     MatTooltipModule,
     MatTableModule,
-    NgxCsvParserModule
+    NgxCsvParserModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatRadioModule
     ],
   providers: [SharedService, 
     {provide: LocationStrategy, useClass: HashLocationStrategy}

@@ -22,7 +22,10 @@ export class ImportPageComponent {
   numQuestions: number;
 
   keys = []
+  keysLength = 1;
   data = []
+  dataLength = 1;
+
 
   showCont: boolean = false;
 
@@ -47,10 +50,16 @@ export class ImportPageComponent {
         this.ngxCsvParser.parse(file[0], { header: this.header, delimiter: ',' })
           .pipe().subscribe((result: Array<any>) => {
 
-            console.log('Result', result);
+            //console.log('Result', result);
             this.csvRecords = result;
-            this.keys = (Object.keys(this.csvRecords[0]));
-            this.data = Object.values(this.csvRecords[0]);
+            for (let i = 0; i < result.length; i++) {
+              const key = Object.keys(result[i]);
+              const val = Object.values(result[i]);
+              this.keys.push(key)
+              this.data.push(val)
+            }
+            this.keysLength = this.keys[0].length
+            this.dataLength = this.data[0].length
             this.showCont = true;
           }, (error: NgxCSVParserError) => {
             console.log('Error', error);
@@ -85,10 +94,31 @@ export class ImportPageComponent {
   private onFileChange(files: File[]) {
     this.file = files;
     this.filename = files[0].name;
-    //console.log(files)
+    console.log(files)
   }
 
-  dataSource = this.csvRecords;
+  //value used to determine which of the csvRecords you want to pull from
+  selectedData = 0;
+  displayData = this.selectedData + 1;
+
+  getRowId($event){
+    //uses the "event" (meaning whichever row you clicked) to get that row's id, which is linked to its place in the array in the html
+    //path[1] refers it to the id of the element, and id[3] gets the character in the 3rd place of that id
+    this.selectedData = $event.path[1].id[3]
+    this.displayData = parseInt($event.path[1].id[3]) + 1;
+  }
+
+  reset(){
+    this.displayData = 1;
+    this.selectedData = 0;
+    this.csvRecords = [];
+    this.numQuestions = null;
+    this.filename = ""
+  }
+
+  openTut(){
+    const URL = "https://docs.google.com/document/d/19k0DzmtmoIG9caLEQjHpQiimN99gkvbreCMyOsPwYp0/edit?usp=sharing";    
+    window.open(URL, null); 
+  }
 
 }
-

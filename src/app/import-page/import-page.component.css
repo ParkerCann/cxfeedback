@@ -40,3 +40,75 @@
 .uploadcontainer:active{
     background-color: rgb(226, 226, 226);
 }
+
+.dataRow{
+    width: 120px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border-top: 0.5px solid #c3c3c3;
+}
+
+.dataRow:hover{
+    background-color: #eeeeee;
+}
+
+.dataRow:active{
+    background-color: #e6e6e6;
+}
+
+.tblHeader{
+    width: 120px;
+    padding: 8px;
+    text-align: center;
+}
+
+.tblText{
+    width: 120px; 
+    padding: 8px;
+}
+
+.tblBody{
+    table-layout:fixed;
+    max-width: 100%;
+}
+
+.tblContainer{
+    width: 100%;
+    max-height: 400px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+.active{
+    background-color: #eeeeee;
+}
+
+.rowLabel{
+    font-size: medium;
+    color: black;
+    padding-top: 8px;
+}
+
+.hintText{
+    font-size: small;
+    color: grey;
+}
+
+td{
+    margin: 0px;
+    padding: 0px;
+}
+
+.resetBtn{
+    float: right;
+    color: #0093d0;
+}
+
+.resetBtn:hover{
+    color: #2CADE3;
+}
+
+.resetBtn:active{
+    color: #006EA9;
+}

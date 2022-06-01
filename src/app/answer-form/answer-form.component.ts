@@ -13,6 +13,7 @@ import 'rxjs/add/operator/toPromise';
 import { ResponseInputComponent } from './response-input/response-input.component';
 import { updateValues } from '../user-settings-form/user-settings-form.component';
 import { ImportPageComponent } from '../import-page/import-page.component';
+import { Meta } from '@angular/platform-browser';
 
 export interface feedbackid {
   feedbackid: number
@@ -157,7 +158,7 @@ export class AnswerFormComponent implements OnInit {
         this.answerFormValues.questionname = element.questionname;
         this.answerFormValues.review = element.response;
         this.answerFormValues.rating = element.rating;
-        console.log(this.answerFormValues);
+        //console.log(this.answerFormValues);
 
         if(this.answerFormValues.feedbackid == 0){
           this.isError = true;
@@ -371,15 +372,49 @@ export class AnswerFormComponent implements OnInit {
 
   @ViewChild(ImportPageComponent) importPage;
   
+  nullQuestionError = false
 
-  addMultiQuestions(val){
+  //Create a set number of new question blocks
+  //uses 2 parameters, one is the number of questions and the other is which of the csv records you want from the import page
+  //The csv records are from the csvRecords array in the ImportPage component
+  addMultiQuestions(numQuestions, csvRecord){
+    if (numQuestions > 0) {
+      //make sure to remove the error flag if it is true after it turns false
+      this.nullQuestionError = false;
+      //remove the existing question box, then add the new ones
+      document.querySelectorAll('#responseInputForm').item(document.querySelectorAll('#responseInputForm').length-1).remove();
+      this.components.pop()
+
+      for (let index = 0; index < numQuestions; index++) {
+        this.addComponent(this.responseInputComponentClass);
+        //get the length of the amount of data in the record
+        const len = this.importPage.data[csvRecord].length;
+        //get each key for the record
+        const key = this.importPage.keys[csvRecord][len - 1 - index];
+        //get the value of the record by using the key
+        const val = this.importPage.csvRecords[csvRecord][key];
+        //assign the key and value to the new component
+        this.components[index].instance.newQuestion.questionname = key;
+        this.components[index].instance.newQuestion.response = val;
+      }  
+    }
+    else{
+      this.nullQuestionError = true;
+    }
+  }
+
+  resetQuestions(){
+  //for each existing component, remove that component (except for the last one since that's how the "removeComponent" function works)
+    for (let index = this.components.length; index >= 0; index--) {
+      this.removeComponent(this.responseInputComponentClass);
+    }
+
+    //remove the last question
     document.querySelectorAll('#responseInputForm').item(document.querySelectorAll('#responseInputForm').length-1).remove();
     this.components.pop()
 
-    for (let index = 0; index < val; index++) {
-      this.addComponent(this.responseInputComponentClass);
-      this.components[index].instance.newQuestion.questionname = this.importPage.keys[this.importPage.data.length - 1 - index];
-      this.components[index].instance.newQuestion.response = this.importPage.data[this.importPage.data.length - 1 - index];
-    }
+    //add new question
+    this.addComponent(this.responseInputComponentClass);
   }
+    
 }

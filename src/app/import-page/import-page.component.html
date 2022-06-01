@@ -1,5 +1,16 @@
+<script>
+window.dataLayer.push({
+        'event': 'virtualPageView',
+        'buttonName': 'Import Page'
+    })
+</script>
 <div class="border">
     <div class="content">
+        <span>
+            <button class="resetBtn" type="button" (click)="openTut()">
+                View Tutorial
+            </button>
+        </span>
         <div>
             <h2>Import:</h2>
         </div>
@@ -19,17 +30,35 @@
         <br>
         <app-regular-secondary-btn buttontext="Import" type="button" (click)="fileChangeListener(file)"></app-regular-secondary-btn>
         <br>
-        <table>
-            <th *ngFor="let key of keys; let i = index">
-                <ul>{{keys[i]}}</ul>
-            </th>
-            <tr *ngFor="let record of csvRecords; let x = index">
-                <td *ngFor="let datum of data; let i = index">
-                    <ul>{{data[i]}}</ul>
-                </td>
-            </tr>
-        </table>
-        
+        <div>
+            <button class="resetBtn" type="button" (click)="reset()">
+                Reset
+            </button>
+        </div>
+        <!-- container for table -->
+        <div *ngIf="csvRecords.length > 0" class="tblContainer">
+            <table class="tblBody">
+                <!-- made sure to select only keys[0] since the rest of the array will be the same, and we need the values from any of those subarrays -->
+                <!-- same reason for the {{keys[0][i]}} -->
+                <th *ngFor="let key of keys[0]; let i = index">
+                    <ul class="tblHeader">{{keys[0][i]}}</ul>
+                </th>
+                <!-- create a row for each entry in csvRecords and then create a column for the count of each data entry for each csvRecord -->
+                <!-- the getRowId function gets the id of the row from its id attribute upon clicking -->
+                <tr [id]="'row' + [x]" class="dataRow" *ngFor="let record of csvRecords; let x = index" (click)="getRowId($event)">
+                    <td style="align-items: center; padding: 0px !important;" *ngFor="let datum of data[x]; let i = index" [ngClass]="">
+                        <ul style="pointer-events: none;" class="tblText">{{data[x][i]}}</ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hintText" colspan="3">
+                        First row is selected by default. Click another row to select it.
+                    </td>
+                </tr>
+            </table>    
+        </div>
+        <div class="rowLabel" *ngIf="csvRecords.length > 0">
+            Selected: Row {{displayData}}
+        </div>
     </div>
-    
 </div>

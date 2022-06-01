@@ -7,7 +7,8 @@
                 Select a question:
             </mat-label>
 
-            <input type="text"
+            <!-- temporarily removed to save space and be more concise -->
+            <!-- <input type="text"
                     name="question"
                     class="form-select label-buffer"
                     placeholder="(Optional) Select a Question Source"
@@ -23,9 +24,9 @@
                                 [value]="question">
                                 {{question || 'Loading...'}}
                     </mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> 
             
-            <div class="buffer">  </div>
+            <div class="buffer">  </div> -->
 
             <input  *ngIf="writeOwnQuestion == false"
                     type="text"

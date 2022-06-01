@@ -1,0 +1,64 @@
+.header{
+    font-weight: 500;
+    font-size: large;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-collapse:collapse;
+}
+
+.spinner-wrapper{
+    width: 100%;
+    margin: auto;
+    align-items: center;
+}
+
+.spinner-container{
+    margin:auto;
+    width: max-content;   
+}
+
+.btnTable{
+    width: 700px;
+    background-color: none;
+}
+
+.lftColumn{
+    text-align: left;
+}
+
+.rghColumn{
+    text-align: right;
+}
+
+.dataTable{
+    width: 100%;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    background-color: aliceblue;
+    padding: 8px;
+}
+
+.dataTable > tr{
+    height: 32px;
+    max-width: 500px;
+}
+
+.dataTable > tr, td{
+    
+    border-collapse:collapse;
+}
+
+.dataTable > td{
+    text-overflow: ellipsis;
+    padding: 4px;
+}
+
+.border{
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-collapse: collapse;
+    padding: 4px;
+}
