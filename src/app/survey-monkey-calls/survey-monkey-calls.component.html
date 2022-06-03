@@ -7,7 +7,7 @@
 <table class="btnTable">
     <tr class="btnRows">
         <td class="lftColumn">
-            <app-primary-button (click)="getSurveyIds()" buttontext="Get SurveyMonkey Data"></app-primary-button></td>
+            <app-primary-button (click)="getSurveyMonkeyData()" buttontext="Get SurveyMonkey Data"></app-primary-button></td>
         <td class="rghColumn">    
             <app-primary-button *ngIf="uploadStatus != 'Ready'" buttontext="Upload New Data" status=false style="float: right;"> </app-primary-button>
             <app-primary-button *ngIf="uploadStatus == 'Ready'" (click)="compositeUploadFunction()" buttontext="Upload New Data" style="float: right;"> </app-primary-button>
@@ -60,7 +60,3 @@
         </td>
     </tr>
 </table>
-
-<span>
-    <button (click)="attemptOnAsync()">test</button>
-</span>

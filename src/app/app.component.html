@@ -2,26 +2,26 @@
     <div class="container">
         <nav id="navbar" class="navbar">
             <ul class="navbar-nav">
-                <li id="btnFeedbackContainer" class="nav-item">
+                <li id="btnFeedbackContainer" class="nav-item" value="navFeedbackForm">
                     <app-primary-button (click)="dataLayerPush_pageName('Feedback Form')"
                                         buttontext="Feedback Form" 
                                         routerLink="feedback">
                                         </app-primary-button>
                 </li>
-                <li id="btnFeedbackListContainer" class="nav-item">
+                <li id="btnFeedbackListContainer" class="nav-item" value="navAnswerForm">
                     <app-primary-button (click)="dataLayerPush_pageName('Answer Form')"
                                         buttontext="Answer Form" 
                                         routerLink="answer"
                                         matTooltip="Select this if you only want to input answers">
                                         </app-primary-button>
                 </li>
-                <li id="btnFeedbackListContainer" class="nav-item">
+                <li id="btnFeedbackListContainer" class="nav-item" value="navPastFeedback">
                     <app-primary-button (click)="dataLayerPush_pageName('Past Feedback')"
                                         buttontext="Past Feedback" 
                                         routerLink="feedbacklist">
                                         </app-primary-button>
                 </li>
-                <li>
+                <li id="btnFeedbackListContainer" class="nav-item" value="navSurveyMonkeyUpload">
                     <app-primary-button (click)="openDialog(); dataLayerPush_pageName('surveyMonkey Upload')" buttontext="Upload SurveyMonkey Data">
                         
                     </app-primary-button>

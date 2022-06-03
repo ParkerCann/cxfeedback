@@ -115,20 +115,22 @@ export class SharedService {
 
   async getResponseIds(survey_id:number):Promise<Observable<any[]>>{
     var result = this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/responses', {headers: this.header}).toPromise();
-    console.log(result);
     return result;
   }
 
   async getSurveyDetails(survey_id:number):Promise<Observable<any[]>>{
-    return this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/details', {headers: this.header});
+    var result = this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/details', {headers: this.header}).toPromise();
+    return result;
   }
 
   async getResponseDetails(survey_id:number, response_id:number):Promise<Observable<any[]>>{
-    return this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/responses/' + response_id + '/details', {headers: this.header});
+    var result = this.http.get<any>(this.surveyMonkeyAPI_URL+'/surveys/' + survey_id + '/responses/' + response_id + '/details', {headers: this.header}).toPromise();
+    return result;
   }
 
-  postTeamReviewFeedback(val:any){
-    return this.http.post(this.APIUrl+'/teamreviewfeedback', val);
+  async postTeamReviewFeedback(val:any){
+    var result = await this.http.post(this.APIUrl+'/teamreviewfeedback', val).toPromise();
+    return result as [];
   }
 
   postTeamReviewAnswers(val:any){
@@ -142,7 +144,7 @@ export class SharedService {
 }
 
 async getSurveyMonkeyIDs():Promise<Observable<any[]>>{
-    return this.http.get<any>(this.APIUrl+'/getsurveymonkeyids', this.json_headers);
+    return this.http.get<any>(this.APIUrl+'/getsurveymonkeyids', this.json_headers).toPromise();
   }
   
 }
